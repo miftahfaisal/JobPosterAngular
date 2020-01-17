@@ -1,0 +1,27 @@
+body {
+    background:#E9FCFF;
+    margin:0;
+    grid-template-columns: auto;
+    grid-template-rows: auto 80% 20%;
+}
+
+/* img { 
+    width:150px;
+    justify-self:center;
+} */
+
+.kontainer {
+    display:grid;
+    grid-template-columns: 67% auto;
+    padding: 1em 1em;
+}
+
+.dasbor{
+    display:grid;
+    grid-template-columns: 20% auto;
+    padding: 1em 3em;
+}
+
+footer {
+    background:#68B4EE;
+}

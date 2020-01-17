@@ -1,0 +1,32 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <button pButton type="button" label="My Profile" icon="pi pi-user" [routerLink]="'/applicant/myprofile'"></button>&nbsp;
+        <button pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+    </div>
+</p-toolbar>
+
+<body>
+    <div class="kontainer">
+        <div id="content">
+            <!-- <p-menu [model]="items"></p-menu> -->
+        </div>
+        <div>
+            <p-toolbar>
+                <div class="konten">
+                    <div>
+                        <h3><strong>Education</strong></h3><br>
+                        <p>Universitas Muhammadiyah Malang</p>
+                        <p>Bachelor's, Informatics Engineering</p>
+                    </div>
+                    <div style="justify-self: right;">
+                        <button (click)="editEducation()" pButton type="button" label="Edit" icon="pi pi-cog"></button>
+                    </div>
+                </div>
+            </p-toolbar>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,42 @@
+body {
+    /* background:#E9FCFF; */
+    margin:0;
+    grid-template-columns: auto;
+    grid-template-rows: auto 60% 40%;
+}
+
+a {
+    text-decoration:none;
+    color:#E9FCFF;
+    font-size:1.8em;
+    font-weight:700;
+}
+
+header {
+    background:#68B4EE;
+    padding: 1em;
+}
+
+.kontainer {
+    display:grid;
+    grid-template-columns: 15% 70% auto;
+    padding: 1em 2em;
+}
+
+.dasbor {
+    display:grid;
+    grid-template-columns: 15% 70% auto;
+    padding: 1em 2em;
+    justify-self: center;
+}
+
+.konten {
+    display:grid;
+    grid-template-columns: 85% auto;
+    padding: 1em 2em;
+    justify-self: center;
+}
+
+footer {
+    background:#68B4EE;
+}
