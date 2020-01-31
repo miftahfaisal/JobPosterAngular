@@ -1,0 +1,46 @@
+body {
+    background:gainsboro;
+    margin:0;
+    grid-template-columns: auto;
+    grid-template-rows: auto 60% 40%;
+}
+
+a {
+    text-decoration:none;
+    color:#E9FCFF;
+    font-size:1.8em;
+    font-weight:700;
+}
+
+header {
+    background:#68B4EE;
+    padding: 1em;
+}
+
+.kontainer {
+    display:grid;
+    /* grid-template-columns: 25% auto; */
+    padding: 1em 2em;
+}
+
+.dasbor {
+    display:grid;
+    grid-template-columns: 15% 70% auto;
+    padding: 2em 0em;
+    justify-self: center;
+    border-bottom: grey solid 1px;
+    margin-left: 2em; margin-right: 2em;
+}
+
+.konten {
+    display:grid;
+    grid-template-columns: 85% auto;
+    padding: 1em 0em;
+    justify-self: center;
+    border-bottom: grey solid 1px;
+    margin-left: 2em; margin-right: 2em;
+}
+
+footer {
+    background:#68B4EE;
+}

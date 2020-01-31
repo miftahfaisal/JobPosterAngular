@@ -1,0 +1,112 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp;
+    </div>
+</p-toolbar>
+<body style="background-image: url('assets/homep.jpg'); background-size: cover;">
+    <div *ngIf="user" class="kontainer">
+        <div id="content"></div>
+        <div style="background-color: white; opacity: 97%;">
+            <div class="dasbor">
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>First Name</p>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.firstName" id="firstName" type="text" size="35" pInputText>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Last Name</p>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.lastName" id="lastName" type="text" size="35" pInputText>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Phone Number</p>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.phone" id="phone" type="number" pInputText>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Email</p>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.username" id="username" type="text" size="35" disabled pInputText>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Degree</p>
+                </div>
+                <div>
+                    <input id="degree" type="text" size="35" pInputText>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>School/University</p>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.education" id="education" type="text" size="35" pInputText>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Expected Salary</p>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.salary" id="salary" type="number" pInputText>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Address</p>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.address" id="address" type="text" size="35" pInputText>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Change Password</p>
+                </div>
+                <div>
+                    <button pButton type="button" (click)="dialogChangePassword()" icon="pi pi-key"></button>
+                </div>
+            </div>
+            <div class="kontenbawah">
+                <div></div>
+                <div>
+                    <button pButton type="button" label="Cancel" [routerLink]="'/applicant/myprofile'" icon="pi pi-ban" class="ui-button-danger"></button>&nbsp;
+                    <button pButton type="button" label="Update" (click)="update()" icon="pi pi-refresh" class="ui-button-success"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- pop-up untuk mengubah password -->
+<p-dialog header="Change Password" [(visible)]="displayChangePassword" [modal]="true">
+    <div><br>
+        <span class="ui-float-label">
+            <input id="currentPassword" type="text" size="30" pInputText> 
+            <label for="currentPassword">Current Password</label>
+        </span><br>
+        <span class="ui-float-label">
+            <input id="newPassword" type="text" size="30" pInputText> 
+            <label for="newPassword">New Password</label>
+        </span><br>
+    </div>
+    <div style="width: 80%; margin-left: 10%; margin-right: 10%;">
+        <button style="width: 47%;" type="button" (click)="cancelDialog()" pButton label="Cancel" class="ui-button-secondary"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="changePassword()" pButton label="Change"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up sidebar profile -->
+<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar>

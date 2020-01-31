@@ -1,0 +1,97 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp;
+    </div>
+</p-toolbar>
+<body>
+    <div class="kontainer">
+        <div id="content"></div>
+        <div>
+            <p-toolbar>
+                <div class="konten">
+                    <div>
+                        <legend><strong>Work Experience</strong></legend>
+                    </div>
+                    <div>
+                        <label style="padding-top: 13px; padding-left: 3em;">(Please add your work experience)</label>
+                    </div>
+                    <div style="justify-self: right;">
+                        <button (click)="showDialogAddWorkExperience()" pButton type="button" icon="pi pi-plus" class="ui-button-secondary"></button>
+                    </div>
+                </div>
+                <div *ngFor="let aplwe of aplWE;" class="kontentengah">
+                    <div>
+                        <legend>{{aplwe.company}}</legend>
+                        <p>{{aplwe.jobTittle}} - {{aplwe.startDate | date: 'MMM/yyyy'}} until {{aplwe.endDate | date: 'MMM/yyyy'}}</p>
+                    </div>
+                    <div style="justify-self: right;">
+                        <button (click)="editWorkExperience(aplwe.id)" pButton type="button" icon="pi pi-pencil"></button>&nbsp;
+                        <button (click)="deleteWorkExperience(aplwe.id)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button>
+                    </div>
+                </div>
+                <div class="kontenbawah">
+                    <div></div>
+                    <div style="justify-self: right;">
+                        <button (click)="backToProfile()" pButton type="button" label="Back to Profile" class="ui-button-success"></button>
+                    </div>
+                </div>
+            </p-toolbar>
+        </div>
+    </div>
+</body>
+
+<!-- pop-up untuk menambahkan work experience -->
+<p-dialog header="Add Work Experience" [(visible)]="displayAddWorkExperience" [modal]="true">
+    <div class="kontenadd">
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplWEModel.company" id="company" type="text" size="44" pInputText>
+                <label>Company</label>
+            </span><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplWEModel.description" id="description" type="text" size="44" pInputText>
+                <label>Description</label>
+            </span><br>
+            <p-dropdown [options]="jobCat" [(ngModel)]="aplWEModel.jobCategory" placeholder="- Choose Your Job Category -" optionLabel="jobCategoryName" size="30"></p-dropdown><br>
+            <label style="text-align-last: center;">Start Date</label><br>
+            <p-calendar [(ngModel)]="aplWEModel.startDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+        </div>
+        <div></div>
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplWEModel.jobTittle" id="jobTitle" type="text" size="44" pInputText>
+                <label>Job Title</label>
+            </span><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplWEModel.salary" id="salary" type="number" size="44" pInputText>
+                <label>Salary</label>
+            </span><br>
+            <p-dropdown [options]="jobLevel" [(ngModel)]="aplWEModel.jobLevel" placeholder="- Choose Your Job Level -" optionLabel="jobLevelName" size="30"></p-dropdown><br>
+            <label style="text-align-last: center;">End Date</label><br>
+            <p-calendar [(ngModel)]="aplWEModel.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+        </div>
+    </div>
+    <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>
+        <button style="width: 47%;" type="button" (click)="addWorkExperience()" pButton label="Submit" class="ui-button-success"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="cancelDialog()" pButton label="Cancel" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up sidebar profile -->
+<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar>

@@ -1,0 +1,144 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="My Account" (click)="sidebarAccountActive()"></button>&nbsp;
+    </div>
+</p-toolbar>
+<body style="background-image: url('assets/homep.jpg'); background-size: cover;">
+    <div class="kontainer">
+        <div></div>
+        <p-scrollPanel [style]="{width: '100%', height: '506px'}">
+            <div class="kontainerjob">
+                <div class="kontenhead">
+                    <div>
+                        <legend><strong>List of Posted Jobs</strong></legend>
+                    </div>
+                    <div style="text-align-last: right;">
+                        <button type="button" (click)="showDialogNewJobPost()" pButton icon="pi pi-plus" label="Add New Job Post" ></button>
+                    </div>
+                </div>
+                <div *ngFor = "let jp of jobPosting;" style="padding-bottom: 10px;">
+                    <div style="background-color: white; border: black solid 1px; padding-bottom: 10px;">
+                        <div class="kontenjob">
+                            <div style="padding-top: 15px;">
+                                <p><strong>{{jp.jobTitleName}}</strong></p>
+                            </div>
+                            <div></div>
+                            <div style="text-align-last: center; padding-top: 15px;">
+                                <p><i class="pi pi-money-bill" style="color: black;"></i> Rp. {{jp.salary}}</p>
+                            </div>
+                            <div style="text-align-last: center; padding-top: 15px;">
+                                <p><i class="pi pi-map-marker"></i> {{jp.city.cityName}}</p>
+                            </div>
+                            <div style="text-align-last: center; padding-top: 15px;">
+                                <p><i class="pi pi-calendar"></i> {{jp.startDate | date: 'dd/MMM/yy'}} - {{jp.endDate | date: 'dd/MMM/yy'}}</p>
+                            </div>
+                            <div  style="text-align-last: right; padding-top: 9px;">
+                                <button type="button" (click)="detailJob(jp.id)" pButton label="Detail"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-scrollPanel>
+    </div>
+</body>
+<footer style="background-color: #68B4EE; text-align-last: center;">
+    <label>Copyright by : Group 4 - Bootcamp Programmer</label>
+</footer>
+
+<!-- pop-up untuk membuat job posting baru -->
+<p-dialog header="Add New Job Post" [(visible)]="displayNewJobPost" [style]="{width: '70%'}" [modal]="true">
+    <div class="kontenaddjob">
+        <div style="padding-right: 1em;">
+            <div class="kontenaddjob">
+                <div><br>
+                    <span class="ui-float-label">
+                        <input [(ngModel)]="jobPost.jobTitleName" id="jobTitle" type="text" size="35" pInputText> 
+                        <label>Job Title</label>
+                    </span><br>
+                    <span class="ui-float-label">
+                        <input [(ngModel)]="jobPost.company" id="company" type="text" size="35" pInputText> 
+                        <label>Company</label>
+                    </span><br>
+                    <textarea [(ngModel)]="jobPost.address" rows="4" cols="35" pInputTextarea autoResize="autoResize" placeholder="Company Address"></textarea>
+                </div>
+                <div><br>
+                    <span class="ui-float-label">
+                        <input [(ngModel)]="jobPost.salary" id="salary" type="number" pInputText> 
+                        <label>Salary</label>
+                    </span>
+                    <p>Province</p>
+                    <p-dropdown id="province" [options]="province" [(ngModel)]="provinceModel" placeholder="- Select Province -" optionLabel="provinceName"></p-dropdown><br>
+                    <p>City</p>
+                    <p-dropdown id="city" [options]="city" [(ngModel)]="cityModel" placeholder="- Select City -" optionLabel="cityName"></p-dropdown><br>
+                    <p>Job Position</p>
+                    <p-dropdown id="jobPosition" [options]="jobPosition" [(ngModel)]="jobPositionModel" placeholder="- Select Job Position -" optionLabel="jobPositionName"></p-dropdown>
+                </div>    
+            </div><br>
+            <p-scrollPanel [style]="{height: '200px'}">
+                <div class="kontenjobdesreq">
+                    <div>
+                        
+                    </div>
+                    <div style="text-align-last: right; padding-right: 1em;">
+                        <button type="button" (click)="showDialogAddJobDes()" pButton icon="pi pi-pencil" label="Job Des"></button>
+                    </div>
+                </div><br>
+                <div class="kontenjobdesreq">
+                    <div>
+                        
+                    </div>
+                    <div style="text-align-last: right; padding-right: 1em;">
+                        <button type="button" (click)="showDialogAddJobReq()" pButton icon="pi pi-pencil" label="Job Req"></button>
+                    </div>
+                </div>
+            </p-scrollPanel>
+        </div>
+        <div style="padding-left: 1em;">
+            <p>Close Date</p>
+            <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2030" [inline]="true" [showIcon]="true"></p-calendar>
+        </div>
+    </div>
+    <div style="text-align-last: right;"><br>
+        <button type="button" (click)="cancelDialogNewJobPost()" pButton label="Cancel" class="ui-button-secondary"></button>&nbsp;
+        <button type="button" (click)="addAllNewJobPost()" pButton label="Post" class="ui-button-success"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk menambah deskripsi job -->
+<p-dialog header="Add Job Description" [(visible)]="displayAddJobDes" [modal]="true">
+    <!-- <div *ngFor=let jd of jobDes; let i = index>
+        <p>{{i+1}}. {{jd}}</p> <label (click)="dropJobDes(i)">Delete</label>
+    </div> -->
+    <div>
+        <br><input [(ngModel)]="deskripsi" id="jobDes" type="text" size="35" placeholder="Job Description" pInputText><br>
+    </div>
+    <div>
+        <button type="button" (click)="addJobDes()" pButton label="Add Job Description"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk menambah requrement job -->
+<p-dialog header="Add Job Requirement" [(visible)]="displayAddJobReq" [modal]="true">
+
+</p-dialog>
+
+<!-- pop-up sidebar Account -->
+<p-sidebar [(visible)]="sidebarAccount" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h2 style="text-align-last: center;"><strong>My Account</strong></h2>
+            <button style="width: 100%;" pButton type="button" [routerLink]="'/recruiter/homepage'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+            <button style="width: 100%;" pButton type="button" [routerLink]="'/recruiter/job-posting'" label="Job Posting List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+            <button style="width: 100%;" pButton type="button" (click)="showDialogApplicationList()" label="Invited Applicant" class="ui-button-secondary" icon="pi pi-clock"></button><br>
+            <button style="width: 100%;" pButton type="button" [routerLink]="''" label="Hired Applicant" class="ui-button-secondary" icon="pi pi-user-plus"></button><br>
+            <button style="width: 100%;" pButton type="button" [routerLink]="''" label="Report" class="ui-button-secondary" icon="pi pi-file"></button><br>
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar>

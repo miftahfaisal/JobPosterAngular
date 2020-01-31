@@ -1,0 +1,229 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp;
+    </div>
+</p-toolbar>
+<body style="background-color: whitesmoke;">
+    <div *ngIf="user" class="kontainer">
+        <div id="content" style="margin-left: 1em;">
+            <p-card>
+                <div>
+                    <div style="text-align-last: center; padding-top: 2em;">
+                        <div>
+                            <img style="align-items: center; width: 200px;" src="assets/logo-orang.jpg">
+                        </div>
+                        <div>
+                            <button pButton type="button" label="Update" icon="pi pi-pencil"></button>&nbsp;
+                            <button pButton type="button" label="Delete" (click)="showDialogDeletePhoto()" icon="pi pi-trash" class="ui-button-danger"></button>
+                        </div>
+                    </div>
+                    <div style="text-align-last: center;"><br>
+                        <legend><strong>{{user.firstName}} {{user.lastName}}</strong></legend>
+                        <p>{{user.education}}</p>
+                        <p>Bachelor's, Informatics Engineering</p>
+                        <i class="pi pi-mobile"></i><label style="width: 25%; text-align-last: center;"> {{user.phone}}</label><br>
+                        <i class="pi pi-envelope"></i><label style="width: 40%; text-align-last: center;"> {{user.username}}</label><br>
+                        <i class="pi pi-money-bill"></i><label style="width: 25%; text-align-last: center;"> {{user.salary}}</label>
+                    </div>
+                    <div style="text-align-last: center; padding-bottom: 1em;">
+                        <button (click)="editProfile()" pButton type="button" label="Edit Profile" icon="pi pi-pencil"></button>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+        <p-scrollPanel [style]="{width: '100%', height: '520px'}">
+            <div style="margin-right: 2em; padding-left: 2em;">
+                <p-accordion [multiple]="true">
+                <!-- <p-card> -->
+                    <!-- <p-fieldset legend="Self Description" [toggleable]="true"> -->
+                    <p-accordionTab header="Self Description">
+                        <div class="konten">
+                            <div>
+                                <div *ngIf="showADESC; else notShowADESC">
+                                    <p style="color: red;"><strong>You have not filled out the form</strong></p>
+                                </div>
+                                <ng-template #notShowADESC>
+                                    <div>
+                                    <p>{{user.selfDescription}}</p>
+                                    </div>    
+                                </ng-template>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                    <!-- </p-fieldset> -->
+                    <div style="margin-bottom: 1em;"></div>
+                    <!-- <p-fieldset legend="Education" [toggleable]="true"> -->
+                        <p-accordionTab header="Education">
+                        <div class="konten">
+                            <div>
+                                <div *ngIf="showAE; else notShowAE">
+                                    <p style="color: red;"><strong>You have not filled out the form</strong></p>
+                                </div>
+                                <ng-template #notShowAE>
+                                    <div *ngFor="let apledu of aplEdu;">
+                                        <p><strong>{{apledu.school}}</strong></p>
+                                    <p>{{apledu.major.majorName}} graduate on {{apledu.endDate | date: 'dd/MMM/yyyy'}}</p>
+                                    </div>    
+                                </ng-template>
+                            </div>
+                            <div style="justify-self: right;">
+                                <button (click)="editEducation()" pButton type="button" icon="pi pi-pencil"></button>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                    <!-- </p-fieldset> -->
+                <!-- </p-card> -->
+                <div style="margin-bottom: 1em;"></div>
+                <!-- <p-card> -->
+                    <!-- <p-fieldset legend="Work Experience" [toggleable]="true"> -->
+                        <p-accordionTab header="Work Experience">
+                        <div class="konten">
+                            <div>
+                                <div *ngIf="showAWE; else notShowAWE">
+                                    <p style="color: red;"><strong>You have not filled out the form</strong></p>
+                                </div>
+                                <ng-template #notShowAWE>
+                                    <div *ngFor="let apwe of aplWorkExp;">
+                                        <p><strong>{{apwe.jobTittle}}</strong></p>
+                                        <p>{{apwe.company}}</p>
+                                    </div>    
+                                </ng-template>
+                            </div>
+                            <div style="justify-self: right;">
+                                <button (click)="editWorkExperience()" pButton type="button" icon="pi pi-pencil"></button>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                    <!-- </p-fieldset> -->
+                <!-- </p-card> -->
+                <div style="margin-bottom: 1em;"></div>
+                <!-- <p-card> -->
+                    <!-- <p-fieldset legend="Skill" [toggleable]="true"> -->
+                        <p-accordionTab header="Skill">
+                        <div class="konten">
+                            <div>
+                                <div *ngIf="showAS; else notShowAS">
+                                    <p style="color: red;"><strong>You have not filled out the form</strong></p>
+                                </div>
+                                <ng-template #notShowAS>
+                                    <div *ngFor="let aps of aplSkill;"> 
+                                        <p><strong>{{aps.skillName}}</strong> {{aps.skillLevel.skillLevelName}}</p>
+                                    </div>    
+                                </ng-template>
+                            </div>
+                            <div style="justify-self: right;">
+                                <button (click)="editSkill()" pButton type="button" icon="pi pi-pencil"></button>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                <!-- </p-fieldset> -->
+                <!-- </p-card> -->
+                <div style="margin-bottom: 1em;"></div>
+                <!-- <p-card> -->
+                <!-- <p-fieldset legend="Project" [toggleable]="true"> -->
+                    <p-accordionTab header="Project">
+                    <div class="konten">
+                        <div>
+                            <div *ngIf="showAP; else notShowAP">
+                                <p style="color: red;"><strong>You have not filled out the form</strong></p>
+                            </div>
+                            <ng-template #notShowAP>
+                                <div *ngFor="let app of aplProject;">
+                                    <p>{{app.projectName}}</p>
+                                </div>    
+                            </ng-template>
+                        </div>
+                        <div style="justify-self: right;">
+                            <button (click)="editWorkExperience()" pButton type="button" icon="pi pi-pencil"></button>
+                        </div>
+                    </div>
+                </p-accordionTab>
+                <!-- </p-fieldset> -->
+                <!-- </p-card> -->
+            </p-accordion>
+            </div>
+        </p-scrollPanel>
+    </div>
+</body>
+
+<!-- pop-up delete foto -->
+<p-dialog header="Delete" [(visible)]="displayDeletePhoto" [modal]="true">
+    <div>
+        <h4>Are you sure?</h4>
+    </div>
+    <div>
+        <button type="button" (click)="cancelDialogDeletePhoto()" pButton label="Cancel"></button>&nbsp;
+        <button type="button" (click)="ininantidiganti()" pButton label="Delete" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk application list -->
+<p-dialog header="Application List" [(visible)]="displayApplicationList" [style]="{width: '60vw'}" [modal]="true">
+        <p-table [value]="cars">
+            <ng-template pTemplate="header">
+                <tr style="text-align-last: center;">
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Date Applied</th>
+                    <th>Status Application</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-car>
+                <tr>
+                    <td>{{car.vin}}</td>
+                    <td>{{car.year}}</td>
+                    <td>{{car.brand}}</td>
+                    <td>{{car.color}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    <div style="text-align-last: right;"><br>
+        <button type="button" (click)="cancelDialogApplicationList()" pButton label="Close" class="ui-button-secondary"></button>&nbsp;
+        <button type="button" (click)="showDialogInterviewList()" pButton label="Interview List" class="ui-button-success"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk interview list -->
+<p-dialog header="Interview List" [(visible)]="displayInterviewList" [style]="{width: '60vw'}" [modal]="true">
+        <p-table [value]="cars">
+            <ng-template pTemplate="header">
+                <tr style="text-align-last: center;">
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Interview Time</th>
+                    <th>Interview Status</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-car>
+                <tr>
+                    <td>{{car.vin}}</td>
+                    <td>{{car.year}}</td>
+                    <td>{{car.brand}}</td>
+                    <td>{{car.color}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    <div style="text-align-last: right;"><br>
+        <button type="button" (click)="cancelDialogInterviewList()" pButton label="Close" class="ui-button-secondary"></button>&nbsp;
+        <button type="button" (click)="showDialogApplicationList()" pButton label="Application List" class="ui-button-success"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up sidebar Profile -->
+<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+        <button style="width: 100%;" pButton type="button" (click)="showDialogApplicationList()" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar>

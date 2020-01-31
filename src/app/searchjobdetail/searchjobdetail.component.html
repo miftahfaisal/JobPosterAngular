@@ -1,0 +1,82 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Log-in" icon="pi pi-user" (click)="showDialogLogin()"></button>
+    </div>
+</p-toolbar>
+<body>
+    <div class="kontainer">
+        <div class="content"></div>
+        <div>
+            <p-toolbar>
+                <div *ngIf="job" class="konten">
+                    <div class="kontenfoto">
+                        <img style="width: 250px;" src="assets/lwcn-logo.png">
+                    </div>
+                    <legend><strong>{{job.jobTitleName}}</strong></legend>
+                    <div class="kontenhead">
+                        <div>
+                            <p>{{job.user.firstName}} {{job.user.lastName}}</p>
+                        </div>
+                        <div style="text-align-last: center;">
+                            <p><i class="pi pi-map-marker"></i> {{job.city.cityName}}</p>
+                        </div>
+                        <div style="text-align-last: right;">
+                            <p><i class="pi pi-money-bill"></i> Rp {{job.salary}}</p>
+                        </div>
+                    </div>
+                    <div style="border-top: black solid 1px; border-bottom: black solid 1px;">
+                        <div style="padding-top: 10px; margin-left: 1em; margin-right: 1em;">
+                            <p><strong>Job description</strong></p>
+                            <div *ngFor = "let jd of jobDes;  let i = index">
+                                <p>{{i+1}}. {{jd.jobDescriptionName}}</p>
+                            </div>
+                        </div>
+                        <div style="padding-top: 5px; margin-left: 1em; margin-right: 1em;">
+                            <p><strong>Job Requirement</strong></p>
+                            <div *ngFor = "let jr of jobReq; let i = index">
+                                <p>{{i+1}}. {{jr.jobRequirementName}}</p>
+                            </div>
+                        </div>
+                        <p>Company address : {{job.address}}</p>
+                    </div>
+                    <div class="kontenfoot" style="padding-top: 10px;">
+                        <div id="content">
+                            <p>{{sum}} Applicant has applied</p>
+                            <p>Closing date : {{job.endDate | date: 'dd/MMM/yyyy'}}</p>
+                        </div>
+                        <div style="text-align-last: right;"><br>
+                            <button type="button" (click)="back()" pButton label="Back" class="ui-button-secondary"></button>&nbsp;
+                            <button type="button" (click)="apply()" pButton label="Apply"></button>
+                        </div>
+                    </div>
+                </div>
+            </p-toolbar>
+        </div>
+    </div>
+</body>
+
+<p-dialog header=" User Log-in" [(visible)]="displayLogin">
+    <div class="kontenlogin">
+        <div><br>
+            <span class="ui-float-label">
+                <input id="float-input" type="text" size="35" pInputText>
+                <label for="float-input">Userame</label>
+            </span><br>
+            <span class="ui-float-label">
+                <input id="float-input" type="text" size="35" pInputText>
+                <label for="float-input">Password</label>
+            </span>
+        </div>
+    </div>
+    <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>
+        <button style="width: 47%;" type="button" (click)="Login()" pButton label="Log-in"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="cancelDialogLogin()" pButton label="Cancel" class="ui-button-secondary"></button>
+    </div><br>
+    <div style="margin-left: 4%; margin-right: 3%; width: 93%;">
+        <label>Don't have an account? Try to</label>&nbsp;
+        <button type="button" (click)="Signup()" pButton label="Sign-up" icon=" pi pi-user-plus" class="ui-button-success"></button>
+    </div>
+</p-dialog>

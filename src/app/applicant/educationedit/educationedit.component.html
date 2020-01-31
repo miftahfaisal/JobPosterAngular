@@ -1,0 +1,129 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp;
+    </div>
+</p-toolbar>
+<body style="background-color: gainsboro; height: 566px;">
+    <div class="kontainer">
+        <div id="content"></div>
+        <div>
+            <p-card>
+                <div class="konten">
+                    <div>
+                        <legend><strong>Education</strong></legend>
+                    </div>
+                    <div>
+                        <label style="padding-top: 13px; padding-left: 3em;">(Please add your recent education)</label>
+                    </div>
+                    <div style="justify-self: right;">
+                        <button (click)="showDialogAddEducation()" pButton type="button" icon="pi pi-plus" class="ui-button-secondary"></button>
+                    </div>
+                </div>
+                <div *ngFor="let apledu of aplEdu;" class="kontentengah">
+                    <div style="padding-top: 5px;">
+                        <p>{{apledu.startDate | date: 'MMM/yyyy'}} ~ {{apledu.endDate | date: 'MMM/yyyy'}}</p>
+                    </div>
+                    <div>
+                        <legend>{{apledu.school}}</legend>
+                        <p>{{apledu.major.eduLevel.educationLevelName}}'s in Major {{apledu.major.majorName}}</p>
+                    </div>
+                    <div style="justify-self: right;">
+                        <button (click)="showDialogEditEducation(apledu.id)" pButton type="button" icon="pi pi-pencil"></button>&nbsp;
+                        <button (click)="deleteEducation(apledu.id)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button>
+                    </div>
+                </div>
+                <div class="kontenbawah">
+                    <div></div>
+                    <div style="justify-self: right;">
+                        <button [routerLink]="'/applicant/myprofile'" pButton type="button" label="Back to Profile" class="ui-button-success"></button>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    </div>
+</body>
+
+<!-- pup-up untuk menambahkan pendidikan -->
+<p-dialog header="Add Education" [(visible)]="displayAddEducation" [modal]="true">
+    <div class="kontenadd">
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplEduModel.school" id="school" type="text" size="35" pInputText>
+                <label for="school">School/University</label>
+            </span><br>
+            <p-dropdown [options]="eduLevel" [(ngModel)]="eds"  placeholder="- Choose Your Degree -" optionLabel="educationLevelName" size="30" ></p-dropdown><br><br>
+        </div>
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplEduModel.gpa" id="float-input" type="number" size="35" pInputText>
+                <label for="float-input">GPA</label>
+            </span><br>
+            <p-dropdown [options]="major" [(ngModel)]="aplEduModel.major" (click)="getAllMajorByEduLevel()" placeholder="- Choose Your Major -" optionLabel="majorName" size="30"></p-dropdown><br><br>
+        </div>
+        <div style="margin-right: 0.5em;">
+            <p>Start Date</p>
+            <p-calendar [(ngModel)]="aplEduModel.startDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+        </div>
+        <div style="margin-left: 0.5em;">
+            <p>Graduation Date</p>
+            <p-calendar [(ngModel)]="aplEduModel.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+        </div>
+    </div>
+    <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>
+        <button style="width: 47%;" type="button" (click)="addEducation()" pButton label="Submit" class="ui-button-success"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="cancelDialogAdd()" pButton label="Cancel" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- pup-up untuk mengedit pendidikan -->
+<p-dialog header="Edit Education" [(visible)]="displayEditEducation" [modal]="true">
+    <div *ngIf="apleduedit" class="kontenadd">
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="apleduedit.school" id="school" type="text" size="30" pInputText>
+                <label for="school">School/University</label>
+            </span><br>
+            <p-dropdown [options]="eduLevel" [(ngModel)]="apleduedit.eduLevel" placeholder="- Choose Your Degree -" optionLabel="educationLevelName" size="30"></p-dropdown><br><br>
+        </div>
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="apleduedit.gpa" id="float-input" type="number" size="35" pInputText>
+                <label for="float-input">GPA</label>
+            </span><br>
+            <p-dropdown [options]="major" [(ngModel)]="aplEduModel.major" (click)="getAllMajorByEduLevel()" placeholder="- Choose Your Major -" optionLabel="majorName" size="30"></p-dropdown><br><br>
+        </div>
+        <div style="margin-right: 0.5em;">
+            <p>Start Date</p>
+            <p-calendar [(ngModel)]="apleduedit.startDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [showIcon]="true"></p-calendar>
+            <span>{{apleduedit.startDate|json}}</span>
+        </div>
+        <div style="margin-left: 0.5em;">
+            <p>Graduation Date</p>
+            <p-calendar [(ngModel)]="apleduedit.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [showIcon]="true"></p-calendar>
+            <span>{{apleduedit.endDate|json}}</span>
+        </div>
+    </div>
+    <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>
+        <button style="width: 47%;" type="button" (click)="editEducation()" pButton label="Update" class="ui-button-success"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="cancelDialogEdit()" pButton label="Cancel" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk menampilkan sidebar profile -->
+<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar>
