@@ -1,0 +1,164 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <!-- <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp; -->
+    </div>
+</p-toolbar>
+<body>
+    <div class="kontainer">
+        <div id="content"></div>
+        <div>
+            <!-- <div style="background-color: white;"> -->
+                <p-card>
+                <div class="konten">
+                    <div>
+                        <legend><strong>Project</strong></legend>
+                    </div>
+                    <div>
+                        <label style="padding-top: 13px; padding-left: 3em;">(Please add your project)</label>
+                    </div>
+                    <div style="justify-self: right;">
+                        <button [routerLink]="'/applicant/myprofile'" pButton type="button" icon="pi pi-arrow-left" class="ui-button-success"></button>&nbsp;
+                        <button (click)="showDialogAddProject()" pButton type="button" icon="pi pi-plus" class="ui-button-secondary"></button>
+                    </div>
+                </div>
+                <div *ngFor="let aplproj of aplProjectList;" class="kontentengah">
+                    <div style="padding-top: 5px;">
+                        <p>{{aplproj.endDate | date: 'dd/MMM/yyyy'}}</p>
+                    </div>
+                    <div></div>
+                    <div>
+                        <legend>{{aplproj.projectName}}</legend>
+                        <p>As {{aplproj.role}}</p>
+                    </div>
+                    <div style="justify-self: right;">
+                        <button (click)="showDialogEditProject(aplproj.id)" pButton type="button" icon="pi pi-pencil"></button>&nbsp;
+                        <button (click)="showDialogDeleteProject(aplproj.id)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button>
+                    </div>
+                </div>
+                <!-- <div class="kontenbawah">
+                    <div></div>
+                    <div style="justify-self: right;">
+                        <button [routerLink]="'/applicant/myprofile'" pButton type="button" label="Back to Profile" class="ui-button-success"></button>
+                    </div>
+                </div> -->
+            </p-card>
+            <!-- </div> -->
+        </div>
+    </div>
+</body>
+
+<!-- pup-up untuk menambahkan project -->
+<p-dialog header="Add Project" [(visible)]="displayAddProject" >
+    <div class="kontenadd">
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplProjectModel.projectName" id="projectName" type="text" size="35" pInputText>
+                <label for="school">Project Name</label>
+            </span><br>
+        </div>
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplProjectModel.role" id="float-input" type="text" size="35" pInputText>
+                <label for="float-input">Role</label>
+            </span><br>
+        </div>
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplProjectModel.link" id="float-input" type="text" size="35" pInputText>
+                <label for="float-input">Link (Optional)</label>
+            </span><br>
+        </div>
+        <div><br>
+            <span class="ui-float-label">
+                <textarea [(ngModel)]="aplProjectModel.description" id="float-input" [rows]="3" [cols]="50" size="35" autoResize="autoResize" pInputTextarea></textarea>
+                <label for="float-input">Description</label>
+            </span><br>
+        </div>
+        <div style="margin-right: 0.5em;">
+            <p>Start Date</p>
+            <p-calendar [(ngModel)]="aplProjectModel.startDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+        </div>
+        <div style="margin-left: 0.5em;">
+            <p>End Date</p>
+            <p-calendar [(ngModel)]="aplProjectModel.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+        </div>
+    </div>
+    <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>
+        <button style="width: 47%;" type="button" (click)="addProject()" pButton label="Submit" class="ui-button-success"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="cancelDialogAdd()" pButton label="Cancel" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- pup-up untuk menambahkan project -->
+<p-dialog header="Add Project" [(visible)]="displayEditProject">
+    <div *ngIf="aplprojectedit" class="kontenadd">
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplprojectedit.projectName" id="projectName" type="text" size="35" pInputText>
+                <label for="school">Project Name</label>
+            </span><br>
+        </div>
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplprojectedit.role" id="float-input" type="text" size="35" pInputText>
+                <label for="float-input">Role</label>
+            </span><br>
+        </div>
+        <div><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplprojectedit.link" id="float-input" type="text" size="35" pInputText>
+                <label for="float-input">Link (Optional)</label>
+            </span><br>
+        </div>
+        <div><br>
+            <span class="ui-float-label">
+                <textarea [(ngModel)]="aplprojectedit.description" id="float-input" [rows]="3" [cols]="35" autoResize="autoResize" pInputTextarea></textarea>
+                <label for="float-input">Description</label>
+            </span><br>
+        </div>
+        <div style="margin-right: 0.5em;">
+            <p>Start Date</p>
+            <p-calendar [(ngModel)]="aplprojectedit.startDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+            <!-- <span>{{aplprojectedit.startDate|json}}</span> -->
+        </div>
+        <div style="margin-left: 0.5em;">
+            <p>End Date</p>
+            <p-calendar [(ngModel)]="aplprojectedit.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+            <!-- <span>{{aplprojectedit.endDate|json}}</span> -->
+        </div>
+    </div>
+    <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>
+        <button style="width: 47%;" type="button" (click)="addProject()" pButton label="Submit" class="ui-button-success"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="cancelDialogEdit()" pButton label="Cancel" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- pop up delete projct -->
+<p-dialog header="Delete Project" [(visible)]="displayDeleteProject">
+    <div>
+        <p>Are you sure want to delete project?</p>
+    </div>
+    <div style="margin-left: 15%; margin-right: 15%; width: 70%;"><br>
+        <button style="width: 47%;" type="button" (click)="cancelDialogDelete()" pButton label="Cancel" class="ui-button-secondary"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="deleteProject()" pButton label="Delete" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk menampilkan sidebar profile -->
+<!-- <p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar> -->

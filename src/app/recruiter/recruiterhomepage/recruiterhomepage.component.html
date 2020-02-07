@@ -1,0 +1,28 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="My Account" (click)="sidebarAccountActive()"></button>&nbsp;
+    </div>
+</p-toolbar>
+<body>
+    
+</body>
+
+<!-- pop-up sidebar Account -->
+<p-sidebar [(visible)]="sidebarAccount" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h2 style="text-align-last: center;"><strong>My Account</strong></h2>
+            <button style="width: 100%;" pButton type="button" [routerLink]="'/recruiter/homepage'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+            <button style="width: 100%;" pButton type="button" [routerLink]="'/recruiter/job-posting'" label="Job Posting List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+            <button style="width: 100%;" pButton type="button" (click)="showDialogApplicationList()" label="Invited Applicant" class="ui-button-secondary" icon="pi pi-clock"></button><br>
+            <button style="width: 100%;" pButton type="button" [routerLink]="''" label="Hired Applicant" class="ui-button-secondary" icon="pi pi-user-plus"></button><br>
+            <button style="width: 100%;" pButton type="button" [routerLink]="''" label="Report" class="ui-button-secondary" icon="pi pi-file"></button><br>
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar>

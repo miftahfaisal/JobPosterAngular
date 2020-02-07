@@ -1,0 +1,309 @@
+<p-toolbar>
+    <div style="padding-top: 5px; padding-bottom: 5px; text-align-last: center;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+</p-toolbar>
+<body style="background-color: ghostwhite;">
+    <div class="kontainer">
+        <div id="content"></div>
+        <p-card *ngIf = jobPost>
+            <div class="kontainerjobhead">
+                <div>
+                    <legend style="padding-left: 0.6em;"><strong>Job Application Detail</strong></legend>
+                </div>
+                <div style="text-align-last: right;">
+                    <div *ngIf="jobPost.activeState == true; else notShowCloseJobBtn">
+                        <button (click)="showDialogCloseJobPosting()" pButton type="button" label="Close Application" class="ui-button-danger" icon="pi pi-ban"></button>&nbsp;
+                        <button (click)="updateJobPosting(jobPost.id)" pButton type="button" label="Update" icon="pi pi-pencil"></button>&nbsp;
+                        <button [routerLink]="'/recruiter/job-posting'" pButton type="button" label="Back" class="ui-button-secondary" icon="pi pi-home"></button>
+                    </div>
+                    <ng-template #notShowCloseJobBtn>
+                        <button pButton type="button" label="Close Application" class="ui-button-danger" icon="pi pi-ban" disabled></button>&nbsp;
+                        <button (click)="updateJobPosting(jobPost.id)" pButton type="button" label="Update" icon="pi pi-pencil"></button>&nbsp;
+                        <button [routerLink]="'/recruiter/job-posting'" pButton type="button" label="Back" class="ui-button-secondary" icon="pi pi-home"></button>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="kontainerjob1">
+                <div id="content">
+                    <p><strong>Job Title Name</strong></p>
+                    <p><strong>Published</strong></p>
+                    <p><strong>City</strong></p>
+                    <p><strong>Company Address</strong></p>
+                </div>
+                <div>
+                    <p>{{jobPost.jobTitleName}}</p>
+                    <p>{{jobPost.startDate | date:'dd/MMM/yyyy'}}</p>
+                    <p>{{jobPost.city.cityName}}</p>
+                    <p>{{jobPost.address}}</p>
+                </div>
+                <div>
+                    <p><strong>Company Name</strong></p>
+                    <p><strong>Close Date</strong></p>
+                    <p><strong>Salary</strong></p>
+                    <p><strong>Job Position</strong></p>
+                </div>
+                <div>
+                    <p>{{jobPost.company}}</p>
+                    <p>{{jobPost.endDate | date:'dd/MMM/yyyy'}}</p>
+                    <p>{{jobPost.salary | currency:'Rp '}}</p>
+                    <p>{{jobPost.jobPosition.jobPositionName}}</p>
+                </div>
+            </div><br>
+            <div class="kontainerjob2">
+                <div id="content">
+                    <p><strong>Job Description</strong></p>
+                </div>
+                <div>
+                    <div *ngFor = "let jd of jobDes; let i = index">
+                        <p>{{i+1}}. {{jd.jobDescriptionName}}</p>
+                    </div>
+                </div>
+                <div id="content">
+                    <p><strong>Job Requirement</strong></p>
+                </div>
+                <div>
+                    <div *ngFor = "let jr of jobReq; let i = index">
+                        <p>{{i+1}}. {{jr.jobRequirementName}}</p>
+                    </div>
+                </div>
+                <div id="content">
+                    <p><strong>Job Benefit</strong></p>
+                </div>
+                <div>
+                    <div *ngFor = "let jb of jobBen; let i = index">
+                        <p>{{i+1}}. {{jb.jobBenefitName}}</p>
+                    </div>
+                </div>
+            </div><br>
+            <p-tabView>
+                <p-tabPanel header="Applied Applicants">
+                    <p-table [value]="applicants">
+                        <ng-template pTemplate="header">
+                            <tr style="text-align-last: center;">
+                                <th>Applicant Name</th>
+                                <th>Date Applied</th>
+                                <th>Status Application</th>
+                                <th>Action</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-apl>
+                            <tr style="text-align-last: center;">
+                                <td>{{apl.application.user.firstName}} {{apl.application.user.lastName}}</td>
+                                <td>{{apl.application.dateOfApplication | date:'dd/MMM/yyyy'}}</td>
+                                <td>{{apl.state.stateName}}</td>
+                                <td>
+                                    <button (click)="showDialogDetailApplicant(apl.id)" pButton type="button" label="Detail Applicant" icon="pi pi-user"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Invited Applicants">
+                    <p-table [value]="applicantInterview">
+                        <ng-template pTemplate="header">
+                            <tr style="text-align-last: center;">
+                                <th>Applicant Name</th>
+                                <th>Interview Date</th>
+                                <th>Interview Time</th>
+                                <th>Interview Location</th>
+                                <th>Reschedule</th>
+                                <th>Action</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-ai>
+                            <tr style="text-align-last: center;">
+                                <td>{{ai.application.user.firstName}} {{ai.application.user.lastName}}</td>
+                                <td>{{ai.interviewDate | date:'dd/MMM/yyy'}}</td>
+                                <td>{{ai.interviewTime}}</td>
+                                <td>{{ai.interviewLocation}}</td>
+                                <td>
+                                    <div *ngIf="ai.reschedule == false; else showRescheduleBtn">
+                                        <strong>No</strong>
+                                    </div>
+                                    <ng-template #showRescheduleBtn>
+                                        <button type="button" (click)="showDialogReschedule(ai.id)" pButton label="Reschedule"></button>
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <button (click)="showDialogInterviewResult(ai.id)" pButton type="button" label="Interview Result"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Hired Applicants">
+                    <p-table [value]="applicantHire">
+                        <ng-template pTemplate="header">
+                            <tr style="text-align-last: center;">
+                                <th>Applicant Name</th>
+                                <th>Status</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-ah>
+                            <tr style="text-align-last: center;">
+                                <td>{{ah.application.user.firstName}} {{ah.application.user.lastName}}</td>
+                                <td>{{ah.state.stateName}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+            </p-tabView>
+        </p-card>
+    </div>
+</body>
+
+<!-- pop-up untuk close job application -->
+<p-dialog header="Close Job" [(visible)]="displayCloseJobPosting" [modal]="true">
+    <legend>Are you sure want to close this job?</legend>
+    <div style="text-align-last: center;">
+        <button style="width: 25%;" pButton type="button" label="Close Job" class="ui-button-danger" (click)="closeJobPosting()"></button>&nbsp;
+        <button style="width: 25%;" pButton type="button" label="Cancel" class="ui-button-secondary" (click)="cancelDialogCloseJobPosting()"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk interview result -->
+<p-dialog header="Interview Result" [(visible)]="displayInterviewResult" [style]="{width: '40vw'}" [modal]="true">
+    <legend style="text-align: center;">How the result of the interview applicant? And which one do you prefer for this applicant?</legend>
+    <div style="text-align-last: center;" *ngIf="interviewTestScheduleModel">
+        <button style="width: 25%;" pButton type="button" label="Reject" class="ui-button-danger" icon="pi pi-ban" (click)="showDialogRejectReason(interviewTestScheduleModel.id)"></button>&nbsp;
+        <button style="width: 25%;" pButton type="button" label="Hire" class="ui-button-success" icon="pi pi-user-plus" (click)="showDialogHireApplicant(interviewTestScheduleModel.id)"></button>&nbsp;
+        <button style="width: 25%;" pButton type="button" label="Cancel" class="ui-button-secondary" (click)="cancelDialogInterviewResult()"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk reject reason -->
+<p-dialog header="Reason Reject Applicant" [(visible)]="displayRejectReason" [modal]="true">
+    <div *ngIf="interviewTestScheduleModel">
+        <div>
+            <br><span class="ui-float-label">
+                <textarea [(ngModel)]="interviewTestScheduleModel.interviewResult" id="interviewResult" type="text" [rows]="5" [cols]="35" autoResize="autoResize" pInputTextarea></textarea>
+                <label>Reject Reason</label>
+            </span>
+        </div>
+        <div style="text-align-last: center;">
+            <button style="width: 35%;" pButton type="button" label="Reject" class="ui-button-danger" icon="pi pi-ban" (click)="rejectApplicant(interviewTestScheduleModel.id)"></button>&nbsp;
+            <button style="width: 35%;" pButton type="button" label="Cancel" class="ui-button-secondary" (click)="cancelDialogRejectReason()"></button>
+        </div>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk applicant hire -->
+<p-dialog header="Hire Applicant" [(visible)]="displayHireApplicant" [style]="{width: '50vw'}" [modal]="true">
+    <div class="konteninterview" *ngIf="interviewTestScheduleModel">
+        <div>
+            <br><span class="ui-float-label">
+                <textarea [(ngModel)]="hireLocation" id="hireLocation" type="text" [rows]="7" [cols]="35" autoResize="autoResize" pInputTextarea></textarea>
+                <label>Hire Location</label>
+            </span>
+        </div>
+        <div>
+            <br><p-calendar [(ngModel)]="hireSchedule" [showTime]="true" [inline]="true" [yearNavigator]="true" yearRange="2020:2025" [monthNavigator]="true"></p-calendar>
+        </div>
+    </div><br>
+    <div style="text-align-last: center;">
+        <button style="width: 25%;" pButton (click)="hireApplicant()" type="button" label="Hire Applicant" class="ui-button-success" icon="pi pi-user-plus"></button>&nbsp;
+        <button style="width: 25%;" pButton (click)="cancelDialogHireApplicant()" type="button" label="Cancel" class="ui-button-secondary"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk detail applicant -->
+<p-dialog header="Applicant Detail" [(visible)]="displayDetailApp" [style]="{width: '70vw'}" [modal]="true">
+    <div *ngIf = "apldetail">
+        <div class="applicantdetail1">
+            <div style="text-align: right; padding-right: 1em;">
+                <p><strong>Applicant Name</strong></p>
+                <p><strong>Phone Number</strong></p>
+                <p><strong>Email</strong></p>
+                <p><strong>Gender</strong></p>
+                <p><strong>Resume</strong></p>
+            </div>
+            <div>
+                <p>{{apldetail.application.user.firstName}} {{apldetail.application.user.lastName}}</p>
+                <p>{{apldetail.application.user.phone}}</p>
+                <p>{{apldetail.application.user.username}}</p>
+                <p>{{apldetail.application.user.gender}}</p>
+                <button pButton type="button" label="Download" icon="pi pi-download" (click)="showDialogResume()"></button>
+            </div>
+        </div>
+        <div><br>
+            <p><strong>Education</strong></p>
+            <div *ngFor = "let edu of aplEdu; let i = index" class="applicantdetail2">
+                <div>
+                    <p>{{i+1}}. <strong>{{edu.major.eduLevel.educationLevelName}}</strong> in <strong>{{edu.school}}</strong> on Major <strong>{{edu.major.majorName}}</strong> with score <strong>{{edu.gpa}}</strong></p>
+                </div>
+                <div style="text-align: center;">
+                    <p>{{edu.startDate | date:'dd/MMM/yyyy'}} until {{edu.endDate | date:'dd/MMM/yyyy'}}</p>
+                </div>
+            </div>
+        </div>
+        <div><br>
+            <p><strong>Work Experience</strong></p>
+            <div *ngFor = "let we of aplWE; let i = index" class="applicantdetail2">
+                <div>
+                    <p>{{i+1}}. <strong>{{we.jobTittle}}</strong> in <strong>{{we.company}}</strong></p>
+                </div>
+                <div style="text-align: center;">
+                    <p>{{we.startDate | date:'dd/MMM/yyyy'}} until {{we.endDate | date:'dd/MMM/yyyy'}}</p>
+                </div>
+            </div>
+        </div>
+        <div><br>
+            <p><strong>Skill</strong></p>
+            <div *ngFor = "let s of aplSkill; let i = index">
+                <div>
+                    <p>{{i+1}}. <strong>{{s.skillName}}</strong> with Level <strong>{{s.skillLevel}}</strong></p>
+                </div>
+            </div>
+        </div><br>
+        <div style="text-align-last: center;">
+            <button style="width: 15%;" pButton type="button" label="Invite" icon="pi pi-clock" (click)="showDialogInviteApplicant()"></button>&nbsp;
+            <button style="width: 15%;" pButton type="button" label="Cancel" class="ui-button-secondary" (click)="cancelDialogDetailApplicant()"></button>
+        </div>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk resume applicant -->
+<p-dialog header="Resume Applicant" [(visible)]="displayResume" [style]="{width: '50vw'}" [modal]="true">
+    <div>
+        <pdf-viewer [src]="documentData" [render-text]="true" style="display: block;"></pdf-viewer>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk invite interview applicant -->
+<p-dialog header="Interview Applicant" [(visible)]="displayInviteApplicant" [style]="{width: '50vw'}" [modal]="true">
+    <div class="konteninterview">
+        <div>
+            <br><span class="ui-float-label">
+                <textarea [(ngModel)]="interviewLocation" id="interviewLocation" type="text" [rows]="7" [cols]="35" autoResize="autoResize" pInputTextarea></textarea>
+                <label>Interview Location</label>
+            </span>
+        </div>
+        <div>
+            <br><p-calendar [(ngModel)]="interviewSchedule" [showTime]="true" [inline]="true" [yearNavigator]="true" yearRange="2020:2025" [monthNavigator]="true"></p-calendar>
+        </div>
+    </div><br>
+    <div style="text-align-last: center;">
+        <button style="width: 25%;" pButton (click)="sendInviteApplicant()" type="button" label="Send Invite" class="ui-button-success" icon="pi pi-envelope"></button>&nbsp;
+        <button style="width: 25%;" pButton (click)="cancelDialogInviteApplicant()" type="button" label="Cancel" class="ui-button-secondary"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk reschedule interview applicant -->
+<p-dialog header="Reschedule Applicant" [(visible)]="displayReschedule" [style]="{width: '50vw'}" [modal]="true">
+    <div class="konteninterview" *ngIf="interviewTestRescheduleModel">
+        <div>
+            <br><span class="ui-float-label">
+                <textarea [(ngModel)]="interviewTestRescheduleModel.interviewLocation" id="interviewLocation" type="text" [rows]="7" [cols]="35" autoResize="autoResize" pInputTextarea></textarea>
+                <label>Interview Location</label>
+            </span>
+        </div>
+        <!-- <div>
+            <br><p-calendar [(ngModel)]="interviewReschedule" [showTime]="true" [inline]="true" [yearNavigator]="true" yearRange="2020:2025" [monthNavigator]="true"></p-calendar>
+        </div> -->
+    </div><br>
+    <div style="text-align-last: center;">
+        <button style="width: 25%;" pButton (click)="sendReschedule()" type="button" label="Send Invite" class="ui-button-success" icon="pi pi-envelope"></button>&nbsp;
+        <button style="width: 25%;" pButton (click)="cancelDialogReschedule()" type="button" label="Cancel" class="ui-button-secondary"></button>
+    </div>
+</p-dialog>

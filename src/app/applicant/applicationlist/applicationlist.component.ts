@@ -12,4 +12,11 @@ export class ApplicationlistComponent implements OnInit {
   ngOnInit() {
   }
 
+  sidebarProfile: boolean = false;
+  sidebarProfileActive(){
+    this.sidebarProfile = true;
+  }
+  sidebarProfileInactive(){
+    this.sidebarProfile = false;
+  }
 }

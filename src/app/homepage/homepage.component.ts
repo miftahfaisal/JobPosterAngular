@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../models/User';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-homepage',
@@ -7,14 +13,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+
+  user: User = new User("","","","","",null,"","","",null,"","",null,null,null,null,null);
+  
+  list : any;
+  token: any;
+  users: any;
+
+  public userData: any;
+  public tokenData: any;
+
+  constructor(
+    private service: UserService,
+    private route: Router,
+    private authService: AuthService,
+    private messageService: MessageService
+    ) { }
 
   ngOnInit() {
   }
-  
-  display: boolean = false;
-
-  showDialogLogin() {
-      this.display = true;
+  public login(){
+    this.authService.authenticate(this.user)
   }
 }

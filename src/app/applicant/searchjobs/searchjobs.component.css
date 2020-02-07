@@ -1,0 +1,104 @@
+body {
+    /* background:#E9FCFF; */
+    margin:0;
+    grid-template-columns: auto;
+    grid-template-rows: auto 60% 40%;
+}
+
+a {
+    text-decoration:none;
+    color:#E9FCFF;
+    font-size:1.8em;
+    font-weight:700;
+}
+
+header {
+    background:#68B4EE;
+    padding: 1em;
+}
+
+.kontainer {
+    display:grid;
+    grid-template-columns: 25% auto;
+    padding: 1em 0em;
+}
+
+.kontainercari {
+    display:grid;
+    grid-template-columns: 5% 90% auto;
+    padding: 0em 2em;
+}
+
+.kontainerjob {
+    display: grid;
+    padding: 1em 2em;
+    
+    /* opacity: 96%; */
+}
+
+.dasbor {
+    display:grid;
+    grid-template-columns: 15% 70% auto;
+    padding: 1em 2em;
+    justify-self: center;
+}
+
+.konten {
+    display:grid;
+    grid-template-columns: auto;
+    padding: 1em 2em;
+    justify-self: center;
+}
+
+.kontendetailjob {
+    display:grid;
+    grid-template-columns: auto;
+    padding: 1em 1em;
+    justify-self: center;
+}
+
+.kontenfotodetailjob {
+    display:grid;
+    grid-template-columns: auto;
+    padding: 1em 1em;
+    justify-self: center;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.kontenheaddetailjob {
+    display:grid;
+    grid-template-columns: 35% 25% 20% auto;
+}
+
+.kontenfootdetailjob {
+    display:grid;
+    grid-template-columns: 50% auto;
+    padding: 0em 0em;
+}
+
+.kontenjob {
+    display:grid;
+    grid-template-columns: 25% 5% 15% 15% 25% auto;
+    padding: 0em 1em;
+    justify-self: center;
+}
+
+.kontenbawah {
+    display:grid;
+    grid-template-columns: 85% auto;
+    padding: 1em 2em;
+    justify-self: center;
+}
+
+.kontenlogin {
+    display:grid;
+    grid-template-columns:46% 4% 48% auto;
+    padding: 0em 1em;
+    justify-self: center;
+}
+
+footer {
+    background:#68B4EE;
+    text-align-last: center;
+}

@@ -19,22 +19,35 @@ header {
 
 .kontainer {
     display:grid;
-    grid-template-columns: 15% 70% auto;
-    padding: 2em 2em;
+    grid-template-columns: 30% auto;
+    padding: 1em 0em;
+}
+
+.kontainer-profile {
+    display:grid;
+    grid-template-columns: 35% auto;
 }
 
 .dasbor {
     display:grid;
     grid-template-columns: 15% 70% auto;
-    padding: 1em 2em;
+    padding: 2em 0em;
     justify-self: center;
+    border-bottom: grey solid 1px;
+    margin-left: 2em; margin-right: 2em;
 }
 
 .konten {
     display:grid;
     grid-template-columns: 85% auto;
-    padding: 1em 2em;
+    padding: 1em 0em;
     justify-self: center;
+    margin-left: 2em; margin-right: 2em; margin-bottom: 1em;
+}
+
+.kontendok {
+    display: grid;
+    grid-template-columns: 75% auto;
 }
 
 footer {

@@ -1,1 +1,144 @@
-<p>searchjob works!</p>
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png" [routerLink]="''">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Log-in" icon="pi pi-user" (click)="showDialogLogin()"></button>
+    </div>
+</p-toolbar>
+<body style="background-image: url('assets/homep.jpg'); background-size: cover;">
+    <div class="kontainer">
+        <div class="kontainercari">
+            <div id="content"></div>
+            <div>
+                <div style="border: black solid 1px; background-color: white; padding-top: 10px; padding-bottom: 10px;">
+                    <div class="konten">
+                        <div style="padding-bottom: 10px;">
+                            <input style="width: 100%;" [(ngModel)]="filterJob.salaryMin" id="salaryMin" type="number" pInputText placeholder="Min Salary"><br>
+                        </div>
+                        <div style="padding-bottom: 10px;">
+                            <input style="width: 100%;" [(ngModel)]="filterJob.salaryMax" id="salaryMax" type="number" pInputText placeholder="Max Salary"><br>
+                        </div>
+                        <div style="text-align-last: center; padding-bottom: 10px;">
+                            <p-dropdown id="province" [options]="province" [(ngModel)]="provinceModel" placeholder="- Select Province -" optionLabel="provinceName"></p-dropdown><br>
+                        </div>
+                        <div style="text-align-last: center; padding-bottom: 10px;">
+                            <p-dropdown id="jobCategory" [options]="jobCategory" [(ngModel)]="jobCategoryModel" placeholder="- Select Job Category -" optionLabel="jobCategoryName"></p-dropdown>
+                        </div>
+                        <div>
+                            <button style="width: 100%;" (click)="searchJob()" pButton type="button" label="Search Job" icon="pi pi-search"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p-scrollPanel [style]="{width: '100%', height: '480px'}">
+            <div class="kontainerjob">
+                <legend style="text-align-last: center;"><strong>List of Avaible Job</strong></legend>
+                <div *ngFor = "let jp of jobPosting;" style="padding-bottom: 10px;">
+                    <div style="background-color: white; border: black solid 1px; padding-bottom: 10px;">
+                        <div style="padding-left: 1em; padding-top: 10px;">
+                            <legend><strong>{{jp.jobTitleName}}</strong></legend>
+                        </div>
+                        <div class="kontenjob">
+                            <div style="padding-top: 8px;">
+                                <p>{{jp.company}}</p>
+                            </div>
+                            <div></div>
+                            <div style="text-align-last: center; padding-top: 8px;">
+                                <p style="color: #68B4EE;"><i class="pi pi-money-bill" style="color: black;"></i> Log-in required</p>
+                            </div>
+                            <div style="text-align-last: center; padding-top: 8px;">
+                                <p><i class="pi pi-map-marker"></i> {{jp.city.cityName}}</p>
+                            </div>
+                            <div style="text-align-last: center; padding-top: 8px;">
+                                <p><i class="pi pi-calendar"></i> {{jp.startDate | date: 'dd/MMM/yy'}} - {{jp.endDate | date: 'dd/MMM/yy'}}</p>
+                            </div>
+                            <div  style="text-align-last: right;">
+                                <button type="button" (click)="showDialogDetailJob(jp.id)" pButton label="Detail" ></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-scrollPanel>
+    </div>
+</body>
+<footer style="background-color: #68B4EE; text-align-last: center;">
+    <label>Copyright by : Group 4 - Bootcamp Programmer</label>
+</footer>
+
+<!-- pop-up untuk Log-in -->
+<p-dialog header=" User Log-in" [(visible)]="displayLogin" [modal]="true">
+    <div class="kontenlogin">
+        <div><br>
+            <span class="ui-float-label">
+                <input id="float-input" type="text" size="35" pInputText>
+                <label for="float-input">Userame</label>
+            </span><br>
+            <span class="ui-float-label">
+                <input id="float-input" type="text" size="35" pInputText>
+                <label for="float-input">Password</label>
+            </span>
+        </div>
+    </div>
+    <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>
+        <button style="width: 47%;" type="button" (click)="Login()" pButton label="Log-in"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="cancelDialogLogin()" pButton label="Cancel" class="ui-button-secondary"></button>
+    </div><br>
+    <div style="margin-left: 4%; margin-right: 3%; width: 93%;">
+        <label>Don't have an account? Try to</label>&nbsp;
+        <button type="button" (click)="Signup()" pButton label="Sign-up" icon=" pi pi-user-plus" class="ui-button-success"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk detail setiap job -->
+<p-dialog header=" Detail Job" [(visible)]="displayDetailJob" [style]="{width: '70vw'}" [modal]="true">
+    <div *ngIf="job" class="kontendetailjob" style="width: auto;">
+        <div class="kontenfotodetailjob">
+            <img style="width: 250px;" src="assets/lwcn-logo.png">
+        </div>
+        <legend><strong>{{job.jobTitleName}}</strong></legend>
+        <div class="kontenheaddetailjob">
+            <div>
+                <p>{{job.company}}</p>
+            </div>
+            <div style="text-align-last: center;">
+                <label><i class="pi pi-folder-open"></i>  {{job.jobPosition.jobCategory.jobCategoryName}}</label>
+            </div>
+            <div style="text-align-last: center;">
+                <p><i class="pi pi-map-marker"></i> {{job.city.cityName}}</p>
+            </div>
+            <div style="text-align-last: center;">
+                <p style="color: #68B4EE;"><i class="pi pi-money-bill" style="color: black;"></i> Log-in required</p>
+            </div>
+        </div>
+        <div style="border-top: black solid 1px; border-bottom: black solid 1px;">
+            <p-scrollPanel [style]="{width: '100%', height: '100%'}"> 
+                <div style="padding-top: 10px; margin-left: 1em; margin-right: 1em;">
+                    <p><strong>Job description</strong></p>
+                    <div *ngFor = "let jd of jobDes;  let i = index" style="width: 800px;">
+                        <p>{{i+1}}. {{jd.jobDescriptionName}}</p>
+                    </div>
+                </div>
+                <div style="padding-top: 5px; margin-left: 1em; margin-right: 1em;">
+                    <p><strong>Job Requirement</strong></p>
+                    <div *ngFor = "let jr of jobReq; let i = index" style="width: 800px;">
+                        <p>{{i+1}}. {{jr.jobRequirementName}}</p>
+                    </div>
+                </div>
+            </p-scrollPanel>
+            <p style="padding-bottom: 10px;">Company address : {{job.address}}</p>
+        </div>
+        <div class="kontenfootdetailjob" style="padding-top: 10px;">
+            <div id="content">
+                <p>{{sum}} Applicant has applied</p>
+                <p>Closing date : {{job.endDate | date: 'dd/MMM/yyyy'}}</p>
+            </div>
+            <div style="text-align-last: right;"><br>
+                <button type="button" (click)="cancelDialogDetailJob()" pButton label="Close" class="ui-button-secondary"></button>&nbsp;
+                <button type="button" (click)="apply()" pButton label="Apply"></button>
+            </div>
+        </div>
+    </div>
+</p-dialog>

@@ -1,0 +1,124 @@
+body {
+    /* background:#E9FCFF; */
+    margin:0;
+    grid-template-columns: auto;
+    grid-template-rows: auto 60% 40%;
+}
+
+a {
+    text-decoration:none;
+    color:#E9FCFF;
+    font-size:1.8em;
+    font-weight:700;
+}
+
+header {
+    background:#68B4EE;
+    padding: 1em;
+}
+
+.kontainer {
+    display:grid;
+    grid-template-columns: 20% 60% auto;
+    padding: 2em 0em;
+}
+
+.kontainerjobhead {
+    display: grid;
+    grid-template-columns: 50% auto;
+}
+
+.kontenjobdesreq1 {
+    border: gainsboro solid 1px;
+}
+
+.kontenjobdesreq2 {
+    display: grid;
+    grid-template-columns: 75% auto;
+    padding: 1em 1em;
+}
+
+.kontainerjob1 {
+    display: grid;
+    grid-template-columns: 55% auto;
+    padding: 0em 1em;
+}
+
+.kontainerjob2 {
+    display: grid;
+    grid-template-columns: 15% auto;
+    padding: 0em 1em;
+}
+
+.dasbor {
+    display:grid;
+    grid-template-columns: 15% 70% auto;
+    padding: 1em 2em;
+    justify-self: center;
+}
+
+.applicantdetail1 {
+    display:grid;
+    grid-template-columns: 50% auto;
+}
+
+.applicantdetail2 {
+    display:grid;
+    grid-template-columns: 60% auto;
+}
+
+.kontenaddjob {
+    display:grid;
+    grid-template-columns: 60% auto;
+}
+
+.kontenjobdesreq {
+    display: grid;
+    grid-template-columns: 78% auto;
+    border: gainsboro solid 1px;
+    padding: 1em 0em;
+}
+
+.kontenfotodetailjob {
+    display:grid;
+    grid-template-columns: auto;
+    padding: 1em 1em;
+    justify-self: center;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.kontenheaddetailjob {
+    display:grid;
+    grid-template-columns: 35% 25% 20% auto;
+}
+
+.kontenfootdetailjob {
+    display:grid;
+    grid-template-columns: 50% auto;
+    padding: 0em 0em;
+}
+
+.kontenjob {
+    display:grid;
+    grid-template-columns: 25% 5% 15% 15% 25% auto;
+    padding: 0em 1em;
+    justify-self: center;
+}
+
+.kontenhead {
+    display:grid;
+    grid-template-columns: 50% auto;
+}
+
+.kontenlogin {
+    display:grid;
+    grid-template-columns:46% 4% 48% auto;
+    padding: 0em 1em;
+    justify-self: center;
+}
+
+footer {
+    background:#68B4EE;
+    text-align-last: center;
+}

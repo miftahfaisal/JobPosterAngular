@@ -1,1 +1,114 @@
-<p>skilledit works!</p>
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <!-- <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp; -->
+    </div>
+</p-toolbar>
+<body>
+    <div class="kontainer">
+        <div id="content"></div>
+        <div>
+            <p-card>
+                <div class="konten">
+                    <div>
+                        <legend><strong>Skill</strong></legend>
+                    </div>
+                    <div>
+                        <label style="padding-top: 13px; padding-left: 3em;">(Please add your skill)</label>
+                    </div>
+                    <div style="justify-self: right;">
+                        <button [routerLink]="'/applicant/myprofile'" pButton type="button" icon="pi pi-arrow-left" class="ui-button-success"></button>&nbsp;
+                        <button (click)="showDialogAddSkill()" pButton type="button" icon="pi pi-plus" class="ui-button-secondary"></button>
+                    </div>
+                </div>
+                <div *ngFor="let aps of aplSkillList;" class="kontentengah">
+                    <div>
+                        <p><strong>{{aps.skillName}}</strong></p>
+                    </div>
+                    <div></div>
+                    <div>
+                        <p><strong>{{aps.skillLevel.skillLevelName}}</strong></p>
+                    </div>
+                    <div style="justify-self: right;">
+                        <button (click)="showDialogEditSkill(aps.id)" pButton type="button" icon="pi pi-pencil"></button>&nbsp;
+                        <button (click)="showDialogDeleteSkill(aps.id)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button>
+                    </div>
+                </div>
+                <!-- <div class="kontenbawah">
+                    <div></div>
+                    <div style="justify-self: right;">
+                        <button (click)="backToProfile()" pButton type="button" label="Back to Profile" class="ui-button-success"></button>
+                    </div>
+                </div> -->
+            </p-card>
+        </div>
+    </div>
+</body>
+
+<!-- pop up insert new skill -->
+<p-dialog header="Add Skill" [(visible)]="displayAddSkill">
+    <div class="kontenadd">
+        <div class="content"><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplSkillModel.skillName" id="float-input" type="text" size="30" pInputText>
+                <label for="float-input">Skill Name</label>
+            </span>
+        </div>
+        <div></div>
+        <div><br>
+            <p-dropdown [options]="skillLevel" [(ngModel)]="aplSkillModel.skillLevel" placeholder="- Choose Skill Level -" size="30"></p-dropdown>
+        </div>
+    </div>
+    <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>
+        <button style="width: 47%;" type="button" (click)="addSkill()" pButton label="Submit" class="ui-button-success"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="cancelDialogAdd()" pButton label="Cancel" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- pop up edit skill -->
+<p-dialog header="Edit Skill" [(visible)]="displayEditSkill">
+    <div *ngIf="aplskilledit" class="kontenadd">
+        <div class="content"><br>
+            <span class="ui-float-label">
+                <input [(ngModel)]="aplskilledit.skillName" id="float-input" type="text" size="30" pInputText>
+                <label for="float-input">Skill Name</label>
+            </span>
+        </div>
+        <div></div>
+        <div><br>
+            <p-dropdown [options]="skillLevel" [(ngModel)]="aplSkillModel.skillLevel" placeholder="- Choose Skill Level -" size="30"></p-dropdown>
+        </div>
+    </div>
+    <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>
+        <button style="width: 47%;" type="button" (click)="editSkill()" pButton label="Update" class="ui-button-success"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="cancelDialogEdit()" pButton label="Cancel" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- pop up delete skill -->
+<p-dialog header="Delete Skill" [(visible)]="displayDeleteSkill">
+    <div>
+        <p>Are you sure want to delete skill?</p>
+    </div>
+    <div style="margin-left: 15%; margin-right: 15%; width: 70%;"><br>
+        <button style="width: 47%;" type="button" (click)="cancelDialogDelete()" pButton label="Cancel" class="ui-button-secondary"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="deleteSkill()" pButton label="Delete" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+<!-- 
+<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar> -->

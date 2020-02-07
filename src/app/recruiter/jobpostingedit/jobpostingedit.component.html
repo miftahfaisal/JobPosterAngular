@@ -1,0 +1,170 @@
+<p-toolbar>
+    <div style="padding-top: 5px; padding-bottom: 5px; text-align-last: center;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+</p-toolbar>
+<body style="background-color: ghostwhite;">
+    <div class="kontainer">
+        <div id="content"></div>
+        <p-card *ngIf = jobPost>
+            <div class="kontainerjobhead">
+                <div>
+                    <legend style="padding-left: 0.6em;"><strong>Job Application Edit</strong></legend>
+                </div>
+                <div style="justify-self: right;">
+                    <button (click)="updateJobPosting()" pButton type="button" class="ui-button-success" label="Update (Soon)" icon="pi pi-refresh" disabled></button>&nbsp;
+                    <button (click)="backToDetail(jobPost.id)" pButton type="button" class="ui-button-secondary" label="Back" icon="pi pi-arrow-left"></button>
+                </div>
+            </div><br>
+            <div class="kontainerjob1">
+                <div>
+                    <span class="ui-float-label">
+                        <input [(ngModel)]="jobPost.jobTitleName" id="jobTitle" type="text" size="35" pInputText> 
+                        <label>Job Title</label>
+                    </span><br>
+                    <span class="ui-float-label">
+                        <input [(ngModel)]="jobPost.salary" id="salary" type="number" size="35" pInputText> 
+                        <label>Salary</label>
+                    </span>
+                </div>
+                <div>
+                    <span class="ui-float-label">
+                        <input [(ngModel)]="jobPost.company" id="company" type="text" size="35" pInputText disabled>
+                        <label>Company</label>
+                    </span><br>
+                    <span class="ui-float-label">
+                        <input [(ngModel)]="jobPost.endDate" id="endDate" type="date" size="35" pInputText>
+                        <label>End Date</label>
+                    </span>
+                </div>
+            </div><br>
+            <p-scrollPanel [style]="{height: '295px'}">
+                <div class="kontenjobdesreq1">
+                    <div class="kontenjobdesreq2">
+                        <div>
+                            <span class="ui-float-label">
+                                <input [(ngModel)]="jobDesInput" id="jobDes" type="text" size="45" pInputText> 
+                                <label>Input Job Description</label>
+                            </span>
+                        </div>
+                        <div style="justify-self: right;">
+                            <button type="button" (click)="addJobDes()" pButton icon="pi pi-plus"></button>&nbsp;
+                            <button type="button" (click)="dropJobDes()" pButton icon="pi pi-minus" class="ui-button-danger"></button>
+                        </div>
+                    </div>
+                    <div id="ResultJobDes" style="padding: 0em 1em;">
+                    </div>
+                </div><br>
+                <div class="kontenjobdesreq1">
+                    <div class="kontenjobdesreq2">
+                        <div>
+                            <span class="ui-float-label">
+                                <input [(ngModel)]="jobReqInput" id="jobReq" type="text" size="45" pInputText> 
+                                <label>Input Job Requirement</label>
+                            </span>
+                        </div>
+                        <div style="justify-self: right;">
+                            <button type="button" (click)="addJobReq()" pButton icon="pi pi-plus"></button>&nbsp;
+                            <button type="button" (click)="dropJobReq()" pButton icon="pi pi-minus" class="ui-button-danger"></button>
+                        </div>
+                    </div>
+                    <div id="ResultJobReq" style="padding: 0em 1em;">
+                    </div>
+                </div><br>
+                <div class="kontenjobdesreq1">
+                    <div class="kontenjobdesreq2">
+                        <div>
+                            <span class="ui-float-label">
+                                <input [(ngModel)]="jobBenInput" id="jobBen" type="text" size="45" pInputText> 
+                                <label>Input Job Benefit</label>
+                            </span>
+                        </div>
+                        <div style="justify-self: right;">
+                            <button type="button" (click)="addJobBen()" pButton icon="pi pi-plus"></button>&nbsp;
+                            <button type="button" (click)="dropJobBen()" pButton icon="pi pi-minus" class="ui-button-danger"></button>
+                        </div>
+                    </div>
+                    <div id="ResultJobBen" style="padding: 0em 1em;">
+                    </div>
+                </div>
+            </p-scrollPanel>
+        </p-card>
+    </div>
+</body>
+
+<!-- pop-up untuk detail applicant -->
+<p-dialog header="Close Job" [(visible)]="displayCloseJobPosting" [modal]="true">
+    <legend>Are you sure want to close this job?</legend>
+    <div style="text-align-last: center;">
+        <button style="width: 25%;" pButton type="button" label="Close Job" class="ui-button-danger" (click)="closeJobPosting()"></button>&nbsp;
+        <button style="width: 25%;" pButton type="button" label="Cancel" class="ui-button-secondary" (click)="cancelDialogCloseJobPosting()"></button>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk detail applicant -->
+<p-dialog header="Applicant Detail" [(visible)]="displayDetailApp" [style]="{width: '50vw'}" [modal]="true">
+    <div *ngIf = "apldetail">
+        <div class="applicantdetail1">
+            <div style="text-align: right; padding-right: 1em;">
+                <p><strong>Applicant Name</strong></p>
+                <p><strong>Phone Number</strong></p>
+                <p><strong>Email</strong></p>
+                <p><strong>Gender</strong></p>
+                <p><strong>Resume</strong></p>
+            </div>
+            <div>
+                <p>{{apldetail.application.user.firstName}} {{apldetail.application.user.lastName}}</p>
+                <p>{{apldetail.application.user.phone}}</p>
+                <p>{{apldetail.application.user.username}}</p>
+                <p>{{apldetail.application.user.gender}}</p>
+                <button pButton type="button" label="Download" icon="pi pi-download" (click)="downloadResume()"></button>
+            </div>
+        </div>
+        <div><br>
+            <p><strong>Education</strong></p>
+            <div *ngFor = "let edu of aplEdu; let i = index" class="applicantdetail2">
+                <div>
+                    <p>{{i+1}}. <strong>{{edu.major.eduLevel.educationLevelName}}</strong> in <strong>{{edu.school}}</strong> on Major <strong>{{edu.major.majorName}}</strong> with score <strong>{{edu.gpa}}</strong></p>
+                </div>
+                <div style="text-align: center;">
+                    <p>{{edu.startDate | date:'dd/MMM/yyyy'}} until {{edu.endDate | date:'dd/MMM/yyyy'}}</p>
+                </div>
+            </div>
+        </div>
+        <div><br>
+            <p><strong>Work Experience</strong></p>
+            <div *ngFor = "let we of aplWE; let i = index" class="applicantdetail2">
+                <div>
+                    <p>{{i+1}}. <strong>{{we.jobTittle}}</strong> in <strong>{{we.company}}</strong></p>
+                </div>
+                <div style="text-align: center;">
+                    <p>{{we.startDate | date:'dd/MMM/yyyy'}} until {{we.endDate | date:'dd/MMM/yyyy'}}</p>
+                </div>
+            </div>
+        </div>
+        <div><br>
+            <p><strong>Skill</strong></p>
+            <div *ngFor = "let s of aplSkill; let i = index">
+                <div>
+                    <p>{{i+1}}. <strong>{{s.skillName}}</strong> with Level <strong>{{s.skillLevel}}</strong></p>
+                </div>
+            </div>
+        </div><br>
+        <div style="text-align-last: center;">
+            <button style="width: 15%;" pButton type="button" label="Reject" class="ui-button-danger" icon="pi pi-ban" (click)="rejectApplicant()"></button>&nbsp;
+            <button style="width: 15%;" pButton type="button" label="Invite" icon="pi pi-clock" (click)="showDialogInviteApplicant()"></button>&nbsp;
+            <button style="width: 15%;" pButton type="button" label="Cancel" class="ui-button-secondary" (click)="cancelDialogDetailApplicant()"></button>
+        </div>
+    </div>
+</p-dialog>
+
+<!-- pop-up untuk detail applicant -->
+<p-dialog header="Interview Applicant" [(visible)]="displayInviteApplicant" [style]="{width: '50vw'}" [modal]="true">
+    <div>
+        <p-calendar [(ngModel)]="interviewSchedule" [showTime]="true" [inline]="true"></p-calendar>
+    </div>
+    <div style="text-align-last: center;">
+        <button style="width: 25%;" pButton type="button" label="Send Invite" class="ui-button-success" icon="pi pi-envelope" (click)="sendInviteApplicant()"></button>&nbsp;
+        <button style="width: 25%;" pButton type="button" label="Cancel" class="ui-button-secondary" (click)="cancelDialogInviteApplicant()"></button>
+    </div>
+</p-dialog>

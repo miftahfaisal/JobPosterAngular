@@ -1,1 +1,114 @@
-<p>applicationlist works!</p>
+<!-- pass rofi oehvmihsne -->
+
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp;
+    </div>
+</p-toolbar>
+<body style="background-image: url('assets/homep.jpg'); background-size: cover;">
+    <div *ngIf="user" class="kontainer">
+        <div id="content" style="margin-left: 1em;">
+            <div style="background-color: white;">
+                <div>
+                    <div style="text-align-last: center; padding-top: 2em;">
+                        <div>
+                            <img style="align-items: center; width: 200px;" src="assets/logo-orang.jpg">
+                        </div>
+                        <div>
+                            <button pButton type="button" label="Update" icon="pi pi-pencil"></button>&nbsp;
+                            <button pButton type="button" label="Delete" (click)="showDialogDeletePhoto()" icon="pi pi-trash" class="ui-button-danger"></button>
+                        </div>
+                    </div>
+                    <div style="text-align-last: center;"><br>
+                        <legend><strong>{{user.firstName}} {{user.lastName}}</strong></legend>
+                        <p>{{user.education}}</p>
+                        <p>Bachelor's, Informatics Engineering</p>
+                        <i class="pi pi-mobile"></i><label style="width: 25%; text-align-last: center;"> {{user.phone}}</label><br>
+                        <i class="pi pi-envelope"></i><label style="width: 40%; text-align-last: center;"> {{user.username}}</label><br>
+                        <i class="pi pi-money-bill"></i><label style="width: 25%; text-align-last: center;"> {{user.salary}}</label>
+                    </div>
+                    <div style="text-align-last: center; padding-bottom: 1em;">
+                        <button (click)="editProfile()" pButton type="button" label="Edit Profile" icon="pi pi-pencil"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p-scrollPanel [style]="{width: '100%', height: '480px'}">
+            <div style="margin-right: 2em; padding-left: 2em;">
+                <div style="background-color: white;">
+                    <div class="konten">
+                        <div *ngFor="let apledu of aplEdu;">
+                            <legend><strong>Education</strong></legend>
+                            <p>{{apledu.school}}</p>
+                            <p>Bachelor's Degree in Informatics Engineering on August 2018</p>
+                        </div>
+                        <div style="justify-self: right;">
+                            <button (click)="editEducation()" pButton type="button" icon="pi pi-pencil"></button>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: white;">
+                    <div class="konten">
+                        <div *ngFor="let apwe of aplWorkExp;">
+                            <legend><strong>Work Experience</strong></legend>
+                            <p>{{apwe.jobTittle}}</p>
+                            <p>{{apwe.company}}</p>
+                        </div>
+                        <div style="justify-self: right;">
+                            <button (click)="editWorkExperience()" pButton type="button" icon="pi pi-pencil"></button>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: white;">
+                    <div class="konten">
+                        <div>
+                            <legend><strong>Skill</strong></legend>
+                            <p>Microsoft Office</p>
+                            <p>Java Springboot</p>
+                            <p>Angular PrimeNG</p>
+                            <p>Adobe XD</p>
+                        </div>
+                        <div style="justify-self: right;">
+                            <button (click)="editSkill()" pButton type="button" icon="pi pi-pencil"></button>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: white;">
+                    <div class="konten">
+                        <div>
+                            <legend><strong>Address</strong></legend>
+                            <p>Jl. Cermee, Dusun Tengah RT02/RW04, Kapongan Tengah, Kabupaten Situbondo, Jawa Timur</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-scrollPanel>
+    </div>
+</body>
+
+<p-dialog header="Delete" [(visible)]="displayDeletePhoto">
+    <div>
+        <h4>Are you sure?</h4>
+    </div>
+    <div>
+        <button type="button" (click)="cancelDialog()" pButton label="Cancel"></button>&nbsp;
+        <button type="button" (click)="ininantidiganti()" pButton label="Delete" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar>

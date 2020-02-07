@@ -1,0 +1,126 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp;
+    </div>
+</p-toolbar>
+<body style="background-color: #f1f9f9;">
+    <p-toast [style]="{marginTop: '100px', marginRight: '300px'}" position="top-center" key="error"></p-toast>
+    <p-toast position="center" key="success" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'">
+        <ng-template let-message pTemplate="message">
+            <div style="text-align: center">
+                <i class="pi pi-check" style="font-size: 3em"></i>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <button type="button" pButton (click)="onConfirm()" label="Ok" class="ui-button-success"></button>
+                </div>
+            </div>
+        </ng-template>
+    </p-toast>
+    <div class="dasbortabmenu">
+        <div id="content"></div>
+        <p-tabMenu [model]="tabMenu">
+        </p-tabMenu>
+        <div></div>
+    </div>
+    <div *ngIf="user" class="kontainer">
+        <div id="content"></div>
+        <!-- <div style="background-color: white; opacity: 97%;"> -->
+            <p-card>
+            <div class="dasbor">
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Curriculum Vitae (CV)</p>
+                    <br>
+                </div>
+                <div>
+                    <button pButton type="button" label="Upload" (click)="showDialogUploadCV(user.id)" icon="pi pi-upload" class="ui-button-primary"></button>
+                    <br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Ijazah</p>
+                    <br>
+                </div>
+                <div>
+                    <button pButton type="button" label="Upload" (click)="showDialogUploadIjazah(user.id)" icon="pi pi-upload" class="ui-button-primary"></button>
+                    <br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Certificate</p>
+                    <br>
+                </div>
+                <div>
+                    <button pButton type="button" label="Upload" (click)="showDialogUploadSertif(user.id)" icon="pi pi-upload" class="ui-button-primary"></button>
+                    <br>
+                </div>
+            </div>
+            <div class="kontenbawah">
+                <div></div>
+                <div>
+                    <button pButton type="button" label="Cancel" [routerLink]="'/applicant/myprofile'" icon="pi pi-ban" class="ui-button-danger"></button>&nbsp;
+                </div>
+            </div>
+        </p-card>
+        <!-- </div> -->
+    </div>
+</body>
+
+<!-- dialog cv -->
+<p-dialog header="Upload CV" [(visible)]="displayUploadCV">
+    <div>
+        <input type="file" (change)="getFile($event)">
+    </div><br>
+    <div *ngIf ='progressBar'>
+        <p-progressBar [value]="progressBar"></p-progressBar>
+    </div>
+    <div>
+        <button type="button" (click)="cancelDialogUploadCV()" pButton label="Cancel"></button>&nbsp;
+        <button type="button" (click)="uploadDocument()" pButton label="Upload" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- dialog ijazah -->
+<p-dialog header="Upload Ijazah" [(visible)]="displayUploadIjazah">
+    <div>
+        <input type="file" (change)="getFile($event)">
+    </div><br>
+    <div *ngIf ='progressBar'>
+        <p-progressBar [value]="progressBar"></p-progressBar>
+    </div>
+    <div>
+        <button type="button" (click)="cancelDialogUploadIjazah()" pButton label="Cancel"></button>&nbsp;
+        <button type="button" (click)="uploadDocument()" pButton label="Upload" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<!-- dialog sertif -->
+<p-dialog header="Upload Certificate" [(visible)]="displayUploadSertif">
+    <div>
+        <input type="file" (change)="getFile($event)">
+    </div><br>
+    <div *ngIf ='progressBar'>
+        <p-progressBar [value]="progressBar"></p-progressBar>
+    </div>
+    <div>
+        <button type="button" (click)="cancelDialogUploadSertif()" pButton label="Cancel"></button>&nbsp;
+        <button type="button" (click)="uploadDocument()" pButton label="Upload" class="ui-button-danger"></button>
+    </div>
+</p-dialog>
+
+<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+        <!-- <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br> -->
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar>

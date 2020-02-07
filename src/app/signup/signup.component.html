@@ -1,50 +1,71 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div style="padding-top: 5px; padding-bottom: 5px; margin-left: 10px;">
-        <img [routerLink]="''" src="assets/lwcn-logo.png">
+<p-toolbar>
+    <div style="padding-top: 5px; padding-bottom: 5px; text-align-last: center;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png" [routerLink]="''">
     </div>
-    <div class="navbar-nav ml-auto" style="margin-top: 15px; margin-right: 10px;">
-        <ul>
-            <button pButton type="button" [routerLink]="'/search-job'" label="Search Jobs" icon="pi pi-search"></button>&nbsp;
-            <button pButton type="button" (click)="showDialogLogin()" label="Log-in" icon="pi pi-sign-in"></button>
-        </ul>
+</p-toolbar>
+
+<body style="background-image: url('assets/homep.jpg'); background-size: cover;">
+    <p-toast [style]="{marginTop: '100px', marginRight: '300px'}" position="top-center" key="error"></p-toast>
+    <p-toast [style]="{marginTop: '100px', marginRight: '300px'}" position="top-center" key="success"></p-toast>
+    <div class="dasbortabmenu">
+        <div id="content"></div>
+        <p-tabMenu [model]="tabMenu">
+        </p-tabMenu>
+        <div></div>
     </div>
-</nav>
-<body style="background-color: #E9FCFF;">
-    <div style="margin-left: 20%; margin-right: 20%; width: 60%;">
-        <br>
-        <label style="width: 15%;">First Name</label>
-        <input [(ngModel)]="firstName" id="inputFirstName" type="text" size="30%" pInputText>
-        <label style="width: 15%; margin-left: 10%;">Last Name</label>
-        <input [(ngModel)]="lastName" id="inputLastName" type="text" size="30%" pInputText>
-        <br><br>
-        <label style="width: 15%;">Email</label>
-        <input [(ngModel)]="email" id="inputEmail" type="text" size="30%" pInputText>
-        <label style="width: 15%; margin-left: 10%;">Phone Number</label>
-        <input [(ngModel)]="phoneNumber" id="inputPhone" type="text" size="30%" pInputText>
-        <br><br>
-        <label style="width: 15%;">Gender</label>
-        <p-dropdown [options]="gender" [(ngModel)]="gender" placeholder="Select Gender"></p-dropdown>
-        <label style="width: 15%; margin-left: 18%;">Date of Birth</label>
-        <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
-        <br><br>
-        <div style="margin-left: 30%; margin-right: 30%; width: 40%;">
-            <button style="width: 48%;" pButton type="button" label="Submit" icon="pi pi-user-plus" (click)="methodsubmit()"></button>&nbsp;
-            <button style="width: 48%;" pButton type="button" [routerLink]="''" label="Back to Home" icon="pi pi-home"></button>
-        </div>
+    <div class="dasbor">
+        <div id="content"></div>
+        <p-card>
+            <div style="background-color: white; opacity: 95%;">
+                <div style="margin-left: 5%; margin-right: 5%; padding-top: 2em;">
+                    <div class="kontenform">
+                        <div>
+                            <span class="ui-float-label">
+                                <input [(ngModel)]="register.firstName" id="inputFirstName" type="text" size="35" pInputText>
+                                <label for="firstName">First Name</label>
+                            </span>
+                        </div>
+                        <div style="justify-content: right;">
+                            <span class="ui-float-label">
+                                <input [(ngModel)]="register.lastName" id="inputLastName" type="text" size="35" pInputText>
+                                <label for="lastName">Last Name</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="kontenform">
+                        <div>
+                            <span class="ui-float-label">
+                                <input [(ngModel)]="register.email" id="inputEmail" type="text" size="35" pInputText>
+                                <label for="email">Email</label>
+                            </span>
+                        </div>
+                        <div style="justify-content: right;">
+                            <span class="ui-float-label">
+                                <input [(ngModel)]="register.phone" id="inputPhone" type="text" size="35" pInputText>
+                                <label for="phone">Phone Number</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="kontenform">
+                        <div><label>Gender</label></div>
+                        <div><label>Date of Birth</label></div>
+                        <div>
+                            <p-dropdown [options]="gender" [(ngModel)]="register.gender" placeholder="- Select Gender -"></p-dropdown>
+                        </div>
+                        <div>
+                            <p-calendar [(ngModel)]="register.dateOfBirthday" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2020"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: 25%; margin-right: 25%; width: 50%; padding-bottom: 2em;">
+                    <button style="width: 48%;" pButton type="button" label="Register" icon="pi pi-user-plus" (click)="reg()" class="ui-button-success"></button>&nbsp;
+                    <button style="width: 48%;" pButton type="button" [routerLink]="''" label="Back to Home" icon="pi pi-home"></button>
+                </div>
+            </div>
+        </p-card>
+        <div></div>
     </div>    
 </body>
-
-<!-- pop-up untuk log-in -->
-<p-dialog header="Log-in" [(visible)]="display">
-    <div>
-        <br><span class="ui-float-label">
-            <input id="float-input" type="text" size="30" pInputText> 
-            <label for="float-input">Email</label>
-        </span>
-        <br><span class="ui-float-label">
-            <input id="float-input" type="text" size="30" pInputText> 
-            <label for="float-input">Password</label>
-        </span>
-        <br><button style="width: 100%;" type="button" (click)="cancelDialog()" pButton label="Log-in"></button>
-    </div>
-</p-dialog>
+<footer>
+    <label>Copyright by : Group 4 - Bootcamp Programmer</label>
+</footer>

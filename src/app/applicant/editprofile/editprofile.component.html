@@ -1,1 +1,161 @@
-<p>editprofile works!</p>
+<p-toolbar>
+    <div class="ui-toolbar-group-left" style="padding-top: 5px; padding-bottom: 5px;">
+        <img style="width: 150px;" src="assets/lwcn-logo.png">
+    </div>
+    <div class="ui-toolbar-group-right" style="padding-top: 5px;">
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
+        <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp;
+    </div>
+</p-toolbar>
+<body style="background-color: #f1f9f9;">
+    <p-toast [style]="{marginTop: '100px', marginRight: '300px'}" position="top-center" key="error"></p-toast>
+    <p-toast position="center" key="success" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'">
+        <ng-template let-message pTemplate="message">
+            <div style="text-align: center">
+                <i class="pi pi-check" style="font-size: 3em"></i>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <button type="button" pButton (click)="onConfirm()" label="Ok" class="ui-button-success"></button>
+                </div>
+            </div>
+        </ng-template>
+    </p-toast>
+    <div class="dasbortabmenu">
+        <div id="content"></div>
+        <p-tabMenu [model]="tabMenu">
+        </p-tabMenu>
+        <div></div>
+    </div>
+    <div *ngIf="user" class="kontainer">
+        <div id="content"></div>
+        <!-- <div style="background-color: white; opacity: 97%;"> -->
+            <p-card>
+            <div class="dasbor">
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>First Name</p><br>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.firstName" id="firstName" type="text" size="35" pInputText><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Last Name</p><br>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.lastName" id="lastName" type="text" size="35" pInputText><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Phone Number</p><br>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.phone" id="phone" type="number" disabled pInputText><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Email</p><br>
+                </div>
+                <div>
+                    <input [(ngModel)]="user.username" id="username" type="email" size="35" disabled pInputText><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Date Of Birthday</p><br>
+                </div>
+                <div>
+                    <input id="dob" placeholder="{{user.dateOfBirthday|date:'dd/MMM/yyyy'}}" size="35" disabled pInputText><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Age</p><br>
+                </div>
+                <div>
+                    <input id="age" [(ngModel)]="user.age" type="text" size="35" disabled pInputText><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Gender</p><br>
+                </div>
+                <div>
+                    <input id="gender" [(ngModel)]="user.gender" type="text" size="35" disabled pInputText><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Salary</p><br>
+                </div>
+                <div>
+                    <input id="salary" [(ngModel)]="user.salary" type="number" size="35" pInputText><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Religion</p><br>
+                </div>
+                <div>
+                    <p-dropdown [options]="religion" [(ngModel)]="user.religion" placeholder="- Choose Your Religion -" size="30"></p-dropdown><br><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Marital Status</p><br>
+                </div>
+                <div>
+                    <p-dropdown [options]="maritalStatus" [(ngModel)]="user.maritalStatus" placeholder="- Choose Your Marital Status -" size="30"></p-dropdown><br><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>City</p><br>
+                </div>
+                <div>
+                    <p-dropdown [options]="city" [(ngModel)]="user.city" placeholder="- Choose Your City -" optionLabel="cityName" size="30"></p-dropdown><br><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Address</p><br>
+                </div>
+                <div>
+                    <textarea [(ngModel)]="user.address" id="address" rows="5" cols="50" pInputTextarea autoResize="autoResize"></textarea>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Self Description</p><br>
+                </div>
+                <div>
+                    <textarea [(ngModel)]="user.selfDescription" id="selfDescription" rows="5" cols="50" pInputTextarea autoResize="autoResize"></textarea><br>
+                </div>
+                <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
+                    <p>Change Password</p><br>
+                </div>
+                <div>
+                    <button pButton type="button" (click)="dialogChangePassword()" icon="pi pi-key"></button>
+                </div>
+            </div>
+            <div class="kontenbawah">
+                <div></div>
+                <div>
+                    <button pButton type="button" label="Cancel" [routerLink]="'/applicant/myprofile'" icon="pi pi-ban" class="ui-button-danger"></button>&nbsp;
+                    <button pButton type="button" label="Update" (click)="update()" icon="pi pi-refresh" class="ui-button-success"></button>
+                </div>
+            </div>
+        </p-card>
+        <!-- </div> -->
+    </div>
+</body>
+
+<p-dialog header="Change Password" [(visible)]="displayChangePassword">
+    <div><br>
+        <span class="ui-float-label">
+            <input [(ngModel)]="passwordPojo.oldPas" id="currentPassword" type="text" size="30" pInputText> 
+            <label for="currentPassword">Current Password</label>
+        </span><br>
+        <span class="ui-float-label">
+            <input [(ngModel)]="passwordPojo.newPas" id="newPassword" type="text" size="30" pPassword> 
+            <label for="newPassword">New Password</label>
+        </span><br>
+    </div>
+    <div style="width: 80%; margin-left: 10%; margin-right: 10%;">
+        <button style="width: 47%;" type="button" (click)="cancelDialog()" pButton label="Cancel" class="ui-button-secondary"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="changePassword()" pButton label="Change"></button>
+    </div>
+</p-dialog>
+<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
+    <div style="justify-self: center;">
+        <div style="margin-bottom: 100%;">
+            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
+        <!-- <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
+        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br> -->
+        </div>
+        <div>
+            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
+        </div>
+    </div>
+</p-sidebar>

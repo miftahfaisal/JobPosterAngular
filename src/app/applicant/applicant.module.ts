@@ -4,11 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ApplicantRoutingModule } from './applicant-routing.module';
 import { ApplicantprofileComponent } from './applicantprofile/applicantprofile.component';
 import { EditprofileComponent } from './editprofile/editprofile.component';
-import { WorkexperienceComponent } from './workexperience/workexperience.component';
 import { WorkexperienceeditComponent } from './workexperienceedit/workexperienceedit.component';
-import { EducationComponent } from './education/education.component';
 import { EducationeditComponent } from './educationedit/educationedit.component';
-import { SkillComponent } from './skill/skill.component';
 import { SkilleditComponent } from './skilledit/skilledit.component';
 import { ApplicationlistComponent } from './applicationlist/applicationlist.component';
 import { ResumeComponent } from './resume/resume.component';
@@ -20,14 +17,28 @@ import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api/menuitem';
 import { InputTextModule } from 'primeng/inputtext';
 import { SidebarModule } from 'primeng/sidebar';
+import { CalendarModule } from 'primeng/calendar';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
+import { SearchjobsComponent } from './searchjobs/searchjobs.component';
+import { CardModule } from 'primeng/card';
+import { FieldsetModule } from 'primeng/fieldset';
+import {AccordionModule} from 'primeng/accordion';
+import { ToastModule } from 'primeng/toast';
+import {ProgressBarModule} from 'primeng/progressbar';
+import { ProjecteditComponent } from './projectedit/projectedit.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import { TableModule } from 'primeng/table';
+import {TabMenuModule} from 'primeng/tabmenu';
+import { ApplicantdocumentComponent } from './applicantdocument/applicantdocument.component';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
 
 @NgModule({
-  declarations: [ApplicantprofileComponent, EditprofileComponent, WorkexperienceComponent, WorkexperienceeditComponent, EducationComponent, EducationeditComponent, SkillComponent, SkilleditComponent, ApplicationlistComponent, ResumeComponent],
+  declarations: [ApplicantprofileComponent, EditprofileComponent, WorkexperienceeditComponent, EducationeditComponent, SkilleditComponent, ApplicationlistComponent, ResumeComponent, SearchjobsComponent, ProjecteditComponent, ApplicantdocumentComponent],
   imports: [
     CommonModule,
     ApplicantRoutingModule,
@@ -39,7 +50,18 @@ import { ToolbarModule } from 'primeng/toolbar';
     SplitButtonModule,
     DialogModule,
     ToolbarModule,
-    SidebarModule
+    SidebarModule,
+    CalendarModule,
+    ScrollPanelModule,
+    CardModule,
+    FieldsetModule,
+    AccordionModule,
+    ToastModule,
+    ProgressBarModule,
+    FileUploadModule,
+    TableModule,
+    TabMenuModule,
+    PdfViewerModule
   ]
 })
 export class ApplicantModule { }

@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ApplicantprofileComponent } from './applicantprofile/applicantprofile.component';
 import { EditprofileComponent } from './editprofile/editprofile.component';
-import { EducationComponent } from './education/education.component';
 import { EducationeditComponent } from './educationedit/educationedit.component';
-import { WorkexperienceComponent } from './workexperience/workexperience.component';
 import { WorkexperienceeditComponent } from './workexperienceedit/workexperienceedit.component';
-import { SkillComponent } from './skill/skill.component';
 import { SkilleditComponent } from './skilledit/skilledit.component';
 import { ApplicationlistComponent } from './applicationlist/applicationlist.component';
 import { ResumeComponent } from './resume/resume.component';
+import { SearchjobsComponent } from './searchjobs/searchjobs.component';
+import { ProjecteditComponent } from './projectedit/projectedit.component';
+import { ApplicantdocumentComponent } from './applicantdocument/applicantdocument.component';
 
 
 const routes: Routes = [
@@ -18,21 +18,21 @@ const routes: Routes = [
   },{
     path: 'edit-profile', component : EditprofileComponent
   },{
-    path: 'education', component : EducationComponent
-  },{
     path: 'edit-education', component : EducationeditComponent
   },{
-    path: 'work-experience', component : WorkexperienceComponent
-  },{
     path: 'edit-work-experience', component : WorkexperienceeditComponent
-  },{
-    path: 'skill', component : SkillComponent
   },{
     path: 'edit-skill', component : SkilleditComponent
   },{
     path: 'application-list', component : ApplicationlistComponent
   },{
     path: 'resume', component : ResumeComponent
+  },{
+    path: 'search-job', component : SearchjobsComponent
+  },{
+    path: 'edit-project', component : ProjecteditComponent
+  },{
+    path: 'document', component : ApplicantdocumentComponent
   }
 ];
 

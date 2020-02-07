@@ -5,15 +5,17 @@ body {
     grid-template-rows: auto 80% 20%;
 }
 
-/* img { 
-    width:150px;
-    justify-self:center;
-} */
-
 .kontainer {
     display:grid;
-    grid-template-columns: 67% auto;
-    padding: 1em 1em;
+    grid-template-columns: 5% 55% 5% 25% auto;
+    padding: 1.26em 1em;
+}
+
+.kontenlogin {
+    display:grid;
+    grid-template-columns: 10% 80% auto;
+    padding: 1em 2em;
+    justify-self: center;
 }
 
 .dasbor{
@@ -24,4 +26,5 @@ body {
 
 footer {
     background:#68B4EE;
+    text-align-last: center;
 }
