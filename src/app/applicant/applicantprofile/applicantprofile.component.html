@@ -178,12 +178,13 @@
     </div>
 </body>
 
-<p-dialog header="Delete" [(visible)]="displayDeletePhoto">
+<!-- pop-up delete foto -->
+<p-dialog header="Delete" [(visible)]="displayDeletePhoto" [modal]="true">
     <div>
         <h4>Are you sure?</h4>
     </div>
     <div>
-        <button type="button" (click)="cancelDialog()" pButton label="Cancel"></button>&nbsp;
+        <button type="button" (click)="cancelDialogDeletePhoto()" pButton label="Cancel"></button>&nbsp;
         <button type="button" (click)="ininantidiganti()" pButton label="Delete" class="ui-button-danger"></button>
     </div>
 </p-dialog>

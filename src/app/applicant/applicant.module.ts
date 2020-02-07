@@ -9,10 +9,10 @@ import { EducationeditComponent } from './educationedit/educationedit.component'
 import { SkilleditComponent } from './skilledit/skilledit.component';
 import { ApplicationlistComponent } from './applicationlist/applicationlist.component';
 import { ResumeComponent } from './resume/resume.component';
+import { SearchjobsComponent } from './searchjobs/searchjobs.component';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api/menuitem';
 import { InputTextModule } from 'primeng/inputtext';
