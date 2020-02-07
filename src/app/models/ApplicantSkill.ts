@@ -1,4 +1,4 @@
-import { SkillLevel } from './Skilllevel';
+import { SkillLevel } from './SkillLevel';
 import { User } from './User';
 
 export class ApplicantSkill {
