@@ -154,34 +154,7 @@ export class ApplicantprofileComponent implements OnInit {
   getImageData(imageData){
     this.imageData = imageData;
   }
-  editWorkExperience() {
-    this.router.navigateByUrl('/applicant/edit-work-experience');
-  }
-  editSkill() {
-    this.router.navigateByUrl('/applicant/edit-skill');
-  }
-  logOut(){
-    this.authService.logout();
-  }
-  getEduApplicant(id){
-    this.aplEduService.getEducationByApplicant(id).subscribe(data=>{
-      this.aplEdu = data;
-      if(this.aplEdu == null){
-        this.showAE = true;
-      }
-      console.log(this.aplEdu);
-    })
-  }
-
-  getWorkExpApplicant(id){
-    this.aplWorkExpService.getWorkExpByApplicant(id).subscribe(data=>{
-      this.aplWorkExp = data;
-      if(this.aplWorkExp == null){
-        this.showAWE = true;
-      }
-      console.log(this.aplWorkExp);
-    })
-  }
+  
   editEducation() {
     this.router.navigateByUrl('/applicant/edit-education');
   }

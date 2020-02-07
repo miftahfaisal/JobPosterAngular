@@ -24,7 +24,6 @@ import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
-import { SearchjobsComponent } from './searchjobs/searchjobs.component';
 import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
 import {AccordionModule} from 'primeng/accordion';
