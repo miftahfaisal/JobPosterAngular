@@ -154,7 +154,9 @@ export class ApplicantprofileComponent implements OnInit {
   getImageData(imageData){
     this.imageData = imageData;
   }
-  
+  editProfile(){
+    this.router.navigateByUrl('/applicant/edit-profile');
+  }
   editEducation() {
     this.router.navigateByUrl('/applicant/edit-education');
   }
