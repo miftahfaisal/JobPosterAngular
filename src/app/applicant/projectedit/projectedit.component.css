@@ -39,7 +39,7 @@ header {
 
 .kontentengah {
     display:grid;
-    grid-template-columns: 12% 8% 70% auto;
+    grid-template-columns: 90% auto;
     padding: 1em 2em;
     justify-self: center;
 }

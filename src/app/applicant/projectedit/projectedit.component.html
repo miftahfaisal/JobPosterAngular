@@ -26,13 +26,9 @@
                     </div>
                 </div>
                 <div *ngFor="let aplproj of aplProjectList;" class="kontentengah">
-                    <div style="padding-top: 5px;">
-                        <p>{{aplproj.endDate | date: 'dd/MMM/yyyy'}}</p>
-                    </div>
-                    <div></div>
                     <div>
                         <legend>{{aplproj.projectName}}</legend>
-                        <p>As {{aplproj.role}}</p>
+                        <p>As {{aplproj.role}} - {{aplproj.startDate | date: 'dd/MMM/yyyy'}} until {{aplproj.endDate | date: 'dd/MMM/yyyy'}}</p>
                     </div>
                     <div style="justify-self: right;">
                         <button (click)="showDialogEditProject(aplproj.id)" pButton type="button" icon="pi pi-pencil"></button>&nbsp;
@@ -93,41 +89,41 @@
     </div>
 </p-dialog>
 
-<!-- pup-up untuk menambahkan project -->
-<p-dialog header="Add Project" [(visible)]="displayEditProject">
+<!-- pup-up untuk mengedit project -->
+<p-dialog header="Edit Project" [(visible)]="displayEditProject">
     <div *ngIf="aplprojectedit" class="kontenadd">
         <div><br>
             <span class="ui-float-label">
-                <input [(ngModel)]="aplprojectedit.projectName" id="projectName" type="text" size="35" pInputText>
+                <input [(ngModel)]="aplprojectedit.projectName" id="projectName" type="text" size="28" pInputText>
                 <label for="school">Project Name</label>
             </span><br>
         </div>
         <div><br>
             <span class="ui-float-label">
-                <input [(ngModel)]="aplprojectedit.role" id="float-input" type="text" size="35" pInputText>
+                <input [(ngModel)]="aplprojectedit.role" id="role" type="text" size="30" pInputText>
                 <label for="float-input">Role</label>
             </span><br>
         </div>
         <div><br>
             <span class="ui-float-label">
-                <input [(ngModel)]="aplprojectedit.link" id="float-input" type="text" size="35" pInputText>
+                <input [(ngModel)]="aplprojectedit.link" id="link" type="text" size="28" pInputText>
                 <label for="float-input">Link (Optional)</label>
             </span><br>
         </div>
         <div><br>
             <span class="ui-float-label">
-                <textarea [(ngModel)]="aplprojectedit.description" id="float-input" [rows]="3" [cols]="35" autoResize="autoResize" pInputTextarea></textarea>
+                <textarea [(ngModel)]="aplprojectedit.description" id="description" [rows]="3" [cols]="31" autoResize="autoResize" pInputTextarea></textarea>
                 <label for="float-input">Description</label>
             </span><br>
         </div>
         <div style="margin-right: 0.5em;">
             <p>Start Date</p>
-            <p-calendar [(ngModel)]="aplprojectedit.startDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+            <input  type="date" [(ngModel)]="aplprojectedit.startDate" name="startDate" size="30" pInputText>
             <!-- <span>{{aplprojectedit.startDate|json}}</span> -->
         </div>
         <div style="margin-left: 0.5em;">
             <p>End Date</p>
-            <p-calendar [(ngModel)]="aplprojectedit.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [inline]="true" [showIcon]="true"></p-calendar>
+            <input  type="date" [(ngModel)]="aplprojectedit.endDate" name="startDate" size="30" pInputText>
             <!-- <span>{{aplprojectedit.endDate|json}}</span> -->
         </div>
     </div>

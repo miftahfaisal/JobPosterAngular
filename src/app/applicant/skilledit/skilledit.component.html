@@ -30,7 +30,7 @@
                     </div>
                     <div></div>
                     <div>
-                        <p><strong>{{aps.skillLevel.skillLevelName}}</strong></p>
+                        <p>{{aps.skillLevel}}</p>
                     </div>
                     <div style="justify-self: right;">
                         <button (click)="showDialogEditSkill(aps.id)" pButton type="button" icon="pi pi-pencil"></button>&nbsp;
@@ -79,7 +79,7 @@
         </div>
         <div></div>
         <div><br>
-            <p-dropdown [options]="skillLevel" [(ngModel)]="aplSkillModel.skillLevel" placeholder="- Choose Skill Level -" size="30"></p-dropdown>
+            <p-dropdown [options]="skillLevel" [(ngModel)]="aplskilledit.skillLevel" placeholder="{{aplskilledit.skillLevel}}" size="30"></p-dropdown>
         </div>
     </div>
     <div style="margin-left: 25%; margin-right: 25%; width: 50%;"><br>

@@ -247,18 +247,17 @@
                 <td>{{interviewList.interviewDate | date:'dd/MMM/yyyy'}}</td>
                 <td>{{interviewList.interviewTime}}</td>
                 <td>
-                <div *ngIf="interviewList.attend == true; else notShowInterviewBtn">
-                    <strong>Attending</strong>
-                </div>
+                    <div *ngIf="interviewList.attend == true; else notShowInterviewBtn">
+                        <strong>Attending</strong>
+                    </div>
+                    <ng-template #notShowInterviewBtn>
+                        <div>
+                            <button type="button" (click)="attend(interviewList.id)" pButton icon="pi pi-check" class="ui-button-success"></button>&nbsp;
+                            <button type="button" (click)="showDialogReasonReschedule(interviewList.id)" pButton icon="pi pi-refresh" class="ui-button-primary"></button>&nbsp;
+                            <button type="button" (click)="showDialogReasonReject(interviewList.id)" pButton icon="pi pi-ban" class="ui-button-danger"></button>
+                        </div>
+                    </ng-template>
                 </td>
-                <ng-template #notShowInterviewBtn>
-                        <td>
-                            <button type="button" (click)="attend(interviewList.id)" pButton label="Attend" class="ui-button-success"></button>&nbsp;
-                            <button type="button" (click)="showDialogReasonReschedule(interviewList.id)" pButton label="Reschedule" class="ui-button-primary"></button>&nbsp;
-                            <button type="button" (click)="showDialogReasonReject(interviewList.id)" pButton label="Reject" class="ui-button-danger"></button>                
-                        </td>
-                </ng-template>
-                
             </tr>
         </ng-template>
     </p-table>
@@ -305,8 +304,10 @@
         </div>
         <div>
             <button pButton type="button" label="Preview" (click)="showDialogPreview(aplDoc.fileType, aplDoc.file)" class="ui-button-primary"></button>
-        </div>
-        <br>
+        </div><br>
+    </div>
+    <div style="text-align-last: right; padding-bottom: 1em; padding-right: 1em;">
+        <button pButton type="button" label="Close" (click)="cancelDialogDocumentList()" class="ui-button-danger"></button>
     </div>
 </p-dialog>
 

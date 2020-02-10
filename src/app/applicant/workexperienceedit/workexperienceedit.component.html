@@ -96,7 +96,7 @@
             </span><br>
             <p-dropdown [options]="jobCat" [(ngModel)]="aplworkexpedit.jobCategory" placeholder="- Choose Your Job Category -" optionLabel="jobCategoryName" size="30"></p-dropdown><br>
             <label style="text-align-last: center;">Start Date</label><br>
-            <p-calendar [(ngModel)]="aplworkexpedit.startDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [showIcon]="true"></p-calendar>
+            <input  type="date" [(ngModel)]="aplworkexpedit.startDate" name="startDate" size="35" pInputText>
             <!-- <span>{{aplworkexpedit.startDate|json}}</span> -->
         </div>
         <div></div>
@@ -111,7 +111,7 @@
             </span><br>
             <p-dropdown [options]="jobLevel" [(ngModel)]="aplworkexpedit.jobLevel" placeholder="- Choose Your Job Level -" optionLabel="jobLevelName" size="30"></p-dropdown><br>
             <label style="text-align-last: center;">End Date</label><br>
-            <p-calendar [(ngModel)]="aplworkexpedit.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1980:2030" [showIcon]="true"></p-calendar>
+            <input  type="date" [(ngModel)]="aplworkexpedit.endDate" name="startDate" size="35" pInputText>
             <!-- <span>{{aplworkexpedit.endDate|json}}</span> -->
         </div>
     </div>

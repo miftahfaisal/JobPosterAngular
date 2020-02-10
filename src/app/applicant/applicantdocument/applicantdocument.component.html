@@ -7,7 +7,7 @@
         <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp;
     </div>
 </p-toolbar>
-<body style="background-color: #f1f9f9;">
+<body style="background-color: #f1f9f9; height: 536px;">
     <p-toast [style]="{marginTop: '100px', marginRight: '300px'}" position="top-center" key="error"></p-toast>
     <p-toast position="center" key="success" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'">
         <ng-template let-message pTemplate="message">
@@ -68,6 +68,9 @@
         <!-- </div> -->
     </div>
 </body>
+<footer style="text-align-last: center;">
+    <label>Copyright by : Group 4 - Bootcamp Programmer</label>
+</footer>
 
 <!-- dialog cv -->
 <p-dialog header="Upload CV" [(visible)]="displayUploadCV">

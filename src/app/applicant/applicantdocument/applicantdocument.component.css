@@ -42,7 +42,8 @@ header {
     display:grid;
     grid-template-columns: 75% auto;
     padding-bottom: 1em;
-    justify-self: center;
+    padding-right: 1em;
+    justify-content: right;
 }
 
 footer {
