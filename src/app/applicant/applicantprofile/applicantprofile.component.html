@@ -31,29 +31,27 @@
                             <p style="text-align-last: center;">{{aplRecentEdu.major.eduLevel.educationLevelName}}'s, {{aplRecentEdu.major.majorName}}</p><br>
                         </div>
                         <ng-template #notShowAEToggle>
-                            <div>
-                                
-                            </div>
+                            <div></div>
                         </ng-template>
-                       
-                        <div class="kontainer-profile">
-                            <div style="text-align: right; padding-right: 0.5em;">
-                                <i class="pi pi-mobile"></i><br>
-                                <i class="pi pi-envelope"></i><br>
-                                <i class="pi pi-money-bill"></i>
+                        <div>
+                            <p style="text-align: center;"><i class="pi pi-mobile"></i> {{user.phone}}</p>
+                            <p style="text-align: center;"><i class="pi pi-envelope"></i> {{user.username}}</p>
+                            <div *ngIf="showASAL; else notShowASAL">
+                                <p style="text-align: center;"><i class="pi pi-money-bill"></i><strong style="color: red;">You have not filled out the salary</strong></p>
                             </div>
-                            <div>
-                                <p style="text-align-last: left;"> {{user.phone}}</p>
-                                <p style="text-align-last: left;"> {{user.username}}</p>
-                                <div *ngIf="showASAL; else notShowASAL">
-                                    <p style="text-align-last: left; color: red;"><strong>You have not filled out the salary</strong></p>
+                            <ng-template #notShowASAL>
+                                <div>
+                                    <p style="text-align: center;"><i class="pi pi-money-bill"></i> {{user.salary|currency:'Rp '}}</p>
+                                </div>    
+                            </ng-template>
+                            <div *ngIf="user.address == null || user.address == ''; else showAddress">
+                                <p style="text-align: center;"><i class="pi pi-home"></i><strong style="color: red;"> You have not filled out the address</strong></p>
+                            </div>
+                            <ng-template #showAddress>
+                                <div>
+                                    <p style="text-align: center;"><i class="pi pi-home"></i> {{user.address}}</p>
                                 </div>
-                                <ng-template #notShowASAL>
-                                    <div>
-                                        <p style="text-align-last: left;">{{user.salary|currency:'Rp.'}}</p>
-                                    </div>    
-                                </ng-template>
-                            </div>
+                            </ng-template>
                         </div>
                     </div>
                     <br>
@@ -76,7 +74,7 @@
                                 </div>
                                 <ng-template #notShowADESC>
                                     <div>
-                                    <p>{{user.selfDescription}}</p>
+                                        <p>{{user.selfDescription}}</p>
                                     </div>    
                                 </ng-template>
                             </div>
