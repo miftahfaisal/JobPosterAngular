@@ -26,13 +26,10 @@
                     </div>
                 </div>
                 <div *ngFor="let apledu of aplEdu;" class="kontentengah">
-                    <div style="padding-top: 5px;">
-                        <p>{{apledu.endDate | date: 'dd/MMM/yyyy'}}</p>
-                    </div>
-                    <div></div>
                     <div>
-                        <legend>{{apledu.school}}</legend>
-                        <p>{{apledu.major.eduLevel.educationLevelName}}'s in Major {{apledu.major.majorName}}</p>
+                        <legend><strong>{{apledu.school}}</strong></legend>
+                        <p><strong>{{apledu.major.eduLevel.educationLevelName}}</strong> in Major <strong>{{apledu.major.majorName}}</strong>
+                            from {{apledu.startDate | date: 'MMM/yyyy'}} until {{apledu.endDate | date: 'MMM/yyyy'}}</p>
                     </div>
                     <div style="justify-self: right;">
                         <button (click)="showDialogEditEducation(apledu.id)" pButton type="button" icon="pi pi-pencil"></button>&nbsp;
@@ -52,7 +49,9 @@
 </body>
 
 <!-- pup-up untuk menambahkan pendidikan -->
-<p-dialog header="Add Education" [(visible)]="displayAddEducation">
+<p-dialog header="Add Education" [(visible)]="displayAddEducation" [modal]="true" [dismissableMask]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
+    <p-toast position="top-center" key="wr"></p-toast>
     <div class="kontenadd">
         <div><br>
             <span class="ui-float-label">
@@ -84,7 +83,9 @@
 </p-dialog>
 
 <!-- pup-up untuk mengedit pendidikan -->
-<p-dialog header="Edit Education" [(visible)]="displayEditEducation">
+<p-dialog header="Edit Education" [(visible)]="displayEditEducation" [modal]="true" [dismissableMask]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
+    <p-toast position="top-center" key="wr"></p-toast>
     <div *ngIf="apleduedit" class="kontenadd">
         <div><br>
             <span class="ui-float-label">
@@ -120,7 +121,8 @@
 </p-dialog>
 
 <!-- pop up delete education -->
-<p-dialog header="Delete Education" [(visible)]="displayDeleteEducation">
+<p-dialog header="Delete Education" [(visible)]="displayDeleteEducation" [modal]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
     <div>
         <p>Are you sure want to delete education?</p>
     </div>
@@ -129,18 +131,3 @@
         <button style="width: 47%;" type="button" (click)="deleteEducation()" pButton label="Delete" class="ui-button-danger"></button>
     </div>
 </p-dialog>
-
-<!-- pop-up untuk menampilkan sidebar profile -->
-<!-- <p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
-    <div style="justify-self: center;">
-        <div style="margin-bottom: 100%;">
-            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
-        </div>
-        <div>
-            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
-        </div>
-    </div>
-</p-sidebar> -->

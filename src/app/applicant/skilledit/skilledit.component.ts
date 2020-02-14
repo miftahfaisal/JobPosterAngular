@@ -32,8 +32,7 @@ export class SkilleditComponent implements OnInit {
     private skillLevelService: SkilllevelService,
     private messageService: MessageService,
     private auth: AuthService
-
-  ) { }
+    ){}
 
   ngOnInit() {
     this.user = JSON.parse(this.auth.getUser());
@@ -55,51 +54,44 @@ export class SkilleditComponent implements OnInit {
   }
 
   getSkillApplicant(id){
-    this.aplSkillService.getSkillByApplicant(id).subscribe(
-      (data)=>
-      {
-        this.aplSkillList = data;
-      });
+    this.aplSkillService.getSkillByApplicant(id).subscribe((data)=>{
+      this.aplSkillList = data;
+    });
   }
 
   addSkill(){
-    this.aplSkillService.inputSkill(this.aplSkillModel).subscribe(
-      (data)=>
-      {
-        this.backToProfile();
-      }
-    )
+    this.aplSkillService.inputSkill(this.aplSkillModel).subscribe((data)=>{
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success Message', detail:'Skill submitted'})
+      this.reloadPage();
+    },(error)=>{
+      this.messageService.add({key: 'wr', severity:'warn', summary: 'Warn Message', detail:error.error})
+    })
   }
 
   editSkill(){
-    this.aplSkillService.alterSkill(this.aplskilledit).subscribe(
-      (data)=>
-      {
-        this.backToProfile();
-      }
-    )
+    this.aplSkillService.alterSkill(this.aplskilledit).subscribe((data)=>{
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success Message', detail:'Skill edited'})
+      this.reloadPage();
+    },(error)=>{
+      this.messageService.add({key: 'wr', severity:'warn', summary: 'Warn Message', detail:error.error})
+    })
   }
 
   deleteSkill(){
-    this.aplSkillService.dropSkill(this.id).subscribe(
-      (data)=>
-      {
-        this.backToProfile();
-      }
-    )
+    this.aplSkillService.dropSkill(this.id).subscribe((data)=>{
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success Message', detail:'Skill deleted'})
+      this.reloadPage();
+    })
   }
 
   searchAplSkillById(id){
-    this.aplSkillService.getSkillById(id).subscribe(
-      (data)=>
-      {
-        this.aplskilledit = data;
-      }
-    )
+    this.aplSkillService.getSkillById(id).subscribe((data)=>{
+      this.aplskilledit = data;
+    })
   }
 
-  backToProfile(){
-    this.router.navigateByUrl('/applicant/myprofile')
+  reloadPage(){
+    location.href = '/applicant/edit-skill'
   }
 
   sidebarProfile: boolean = false;

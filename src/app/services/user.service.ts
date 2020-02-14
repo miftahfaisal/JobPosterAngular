@@ -34,7 +34,7 @@ export class UserService {
     return this.httpClient.post(this.apiURL +'/upload/'+ id +'/'+ path, upload)
   }
   public getReport(id){
-    return this.httpClient.get(this.apiURL +'/report/'+ id)
+    return this.httpClient.post(this.apiURL +'/report', id)
   }
   public changePassword(pasPojo){
     return this.httpClient.put(this.apiURL + '/change-password',pasPojo);

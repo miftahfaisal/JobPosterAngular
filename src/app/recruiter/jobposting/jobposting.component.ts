@@ -14,6 +14,9 @@ import { JobPostingPojo } from 'src/app/models/JobPostingPojo';
 import { JobRequirement } from 'src/app/models/JobRequirement';
 import { JobBenefit } from 'src/app/models/JobBenefit';
 import { JobbenefitService } from 'src/app/services/jobbenefit.service';
+import { PasswordPojo } from 'src/app/models/PasswordPojo';
+import { MessageService } from 'primeng/api';
+import { ReportInput } from 'src/app/models/ReportInput';
 
 @Component({
   selector: 'app-jobposting',
@@ -38,6 +41,9 @@ export class JobpostingComponent implements OnInit {
   jobDesInput: string;
   jobReqInput: string;
   jobBenInput: string;
+  passwordPojo: PasswordPojo = new PasswordPojo(null,null,null);
+  reportModel: ReportInput;
+  year:any;
 
   constructor(
     private router : Router,
@@ -49,11 +55,18 @@ export class JobpostingComponent implements OnInit {
     private jobReqService : JobrequirementsService,
     private jobBenService : JobbenefitService,
     private auth : AuthService,
-    private userService : UserService
+    private userService : UserService,
+    private messageService: MessageService
   ){}
 
   ngOnInit() {
     this.user = JSON.parse(this.auth.getUser())
+    if(this.user!=null){
+      this.passwordPojo.setId(this.user.id);
+    }else{
+      this.router.navigateByUrl('/')
+    }
+    
     this.jobPostingService.getJobPostingByRecruiter(this.user.id).subscribe((data)=>{
       this.jobPosting = data
     })
@@ -179,7 +192,29 @@ export class JobpostingComponent implements OnInit {
 
   downloadReport(){
     console.log(this.user.id)
-    this.userService.getReport(this.user.id).subscribe((data)=>{})
+    this.reportModel = new ReportInput(null,null,null);
+    this.reportModel.setRecruiter(this.user.id);
+    this.reportModel.setYear(this.year);
+    this.reportModel.setJob(null);
+    this.userService.getReport(this.reportModel).subscribe(
+      (data)=>{},
+      (error)=>{alert('Report tidak ada')})
+  }
+
+  changePassword(){
+    this.userService.changePassword(this.passwordPojo).subscribe(
+      (data)=>{
+        this.messageService.add({key:'success', severity:'success', summary:'Message', detail:'Password successfully changed'})
+      },
+      (error)=>{
+        this.messageService.add({key:'error', severity:'error', summary:'Message', detail: error.error});
+      }
+    )
+  }
+
+  onConfirm(){
+    this.messageService.clear('success');
+    this.logOut();
   }
 
   // method untuk pop-up dan sidebar
@@ -205,6 +240,24 @@ export class JobpostingComponent implements OnInit {
   }
   cancelDialogAddJobReq(){
     this.displayAddJobReq = false;
+  }
+
+  displayDownloadReport: boolean = false;
+  showDialogDownloadReport(){
+    this.sidebarAccount = false;
+    this.displayDownloadReport = true;
+  }
+  cancelDialogDownloadReport(){
+    this.displayDownloadReport = false;
+  }
+
+  displayChangePassword: boolean = false
+  showDialogChangePassword(){
+    this.displayChangePassword = true
+    this.sidebarAccount = false
+  }
+  cancelDialogChangePassword(){
+    this.displayChangePassword = false
   }
 
   sidebarAccount: boolean = false;

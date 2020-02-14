@@ -33,133 +33,104 @@
                         <ng-template #notShowAEToggle>
                             <div></div>
                         </ng-template>
-                        <div>
-                            <p style="text-align: center;"><i class="pi pi-mobile"></i> {{user.phone}}</p>
-                            <p style="text-align: center;"><i class="pi pi-envelope"></i> {{user.username}}</p>
-                            <div *ngIf="showASAL; else notShowASAL">
-                                <p style="text-align: center;"><i class="pi pi-money-bill"></i><strong style="color: red;">You have not filled out the salary</strong></p>
-                            </div>
-                            <ng-template #notShowASAL>
-                                <div>
-                                    <p style="text-align: center;"><i class="pi pi-money-bill"></i> {{user.salary|currency:'Rp '}}</p>
-                                </div>    
-                            </ng-template>
-                            <div *ngIf="user.address == null || user.address == ''; else showAddress">
-                                <p style="text-align: center;"><i class="pi pi-home"></i><strong style="color: red;"> You have not filled out the address</strong></p>
-                            </div>
-                            <ng-template #showAddress>
-                                <div>
-                                    <p style="text-align: center;"><i class="pi pi-home"></i> {{user.address}}</p>
-                                </div>
-                            </ng-template>
-                        </div>
                     </div>
-                    <br>
-                    <div style="text-align-last: center; padding-bottom: 1em;">
-                        <button (click)="editProfile()" pButton type="button" label="Edit Profile" icon="pi pi-pencil"></button>
+                    <div style="text-align: center;">
+                        <p><i class="pi pi-mobile"></i> {{user.phone}}</p>
+                        <p><i class="pi pi-envelope"></i> {{user.username}}</p>
+                        <div *ngIf="showASAL; else notShowASAL">
+                            <p><i class="pi pi-money-bill"></i><strong style="color: red;">You have not filled out the salary</strong></p>
+                        </div>
+                        <ng-template #notShowASAL>
+                            <div>
+                                <p><i class="pi pi-money-bill"></i> {{user.salary|currency:'Rp '}}</p>
+                            </div>    
+                        </ng-template>
+                        <div *ngIf="user.address == null || user.address == ''; else showAddress">
+                            <p><i class="pi pi-home"></i><strong style="color: red;"> You have not filled out the address</strong></p>
+                        </div>
+                        <ng-template #showAddress>
+                            <div>
+                                <p><i class="pi pi-home"></i> {{user.address}}</p>
+                            </div>
+                        </ng-template>
+                        <div *ngIf="showADESC; else notShowADESC">
+                            <p><i class="pi pi-user"></i><strong style="color: red;"> You have not filled out the form</strong></p>
+                        </div>
+                        <ng-template #notShowADESC>
+                            <div>
+                                <p><i class="pi pi-user"></i> {{user.selfDescription}}</p>
+                            </div>    
+                        </ng-template>
+                        <button (click)="editProfile()" pButton type="button" icon="pi pi-pencil" label="Edit Profile"></button>
                     </div>
                 </div>
             </p-card>
         </div>
-        <p-scrollPanel [style]="{width: '100%', height: '520px', color: 'whitesmoke'}">
-            <div style="margin-right: 2em; padding-left: 2em;">
-                <p-accordion [multiple]="true">
-                <!-- <p-card> -->
-                    <!-- <p-fieldset legend="Self Description" [toggleable]="true"> -->
-                    <p-accordionTab header="Self Description">
-                        <div class="konten">
-                            <div>
-                                <div *ngIf="showADESC; else notShowADESC">
-                                    <p style="color: red;"><strong>You have not filled out the form</strong></p>
-                                </div>
-                                <ng-template #notShowADESC>
-                                    <div>
-                                        <p>{{user.selfDescription}}</p>
-                                    </div>    
-                                </ng-template>
+        <div style="margin-right: 2em; padding-left: 2em;">
+            <p-tabView>
+                <p-tabPanel header="Education">
+                    <div class="konten">
+                        <div>
+                            <div *ngIf="showAE; else notShowAE">
+                                <p style="color: red;"><strong>You have not filled out the form</strong></p>
                             </div>
-                        </div>
-                    </p-accordionTab>
-                    <!-- </p-fieldset> -->
-                    <div style="margin-bottom: 1em;"></div>
-                    <!-- <p-fieldset legend="Education" [toggleable]="true"> -->
-                        <p-accordionTab header="Education">
-                        <div class="konten">
-                            <div>
-                                <div *ngIf="showAE; else notShowAE">
-                                    <p style="color: red;"><strong>You have not filled out the form</strong></p>
-                                </div>
-                                <ng-template #notShowAE>
-                                    <div *ngFor="let apledu of aplEdu;">
-                                        <p><strong>{{apledu.school}}</strong></p>
+                            <ng-template #notShowAE>
+                                <div *ngFor="let apledu of aplEdu;" style="padding-bottom: 5px;">
+                                    <p><strong>{{apledu.school}}</strong></p>
                                     <p>{{apledu.major.majorName}} graduate on {{apledu.endDate | date: 'dd/MMM/yyyy'}}</p>
-                                    </div>    
-                                </ng-template>
-                            </div>
-                            <div style="justify-self: right;">
-                                <button (click)="editEducation()" pButton type="button" icon="pi pi-pencil"></button>
-                            </div>
+                                </div>    
+                            </ng-template>
                         </div>
-                    </p-accordionTab>
-                    <!-- </p-fieldset> -->
-                <!-- </p-card> -->
-                <div style="margin-bottom: 1em;"></div>
-                <!-- <p-card> -->
-                    <!-- <p-fieldset legend="Work Experience" [toggleable]="true"> -->
-                        <p-accordionTab header="Work Experience">
-                        <div class="konten">
-                            <div>
-                                <div *ngIf="showAWE; else notShowAWE">
-                                    <p style="color: red;"><strong>You have not filled out the form</strong></p>
-                                </div>
-                                <ng-template #notShowAWE>
-                                    <div *ngFor="let apwe of aplWorkExp;">
-                                        <p><strong>{{apwe.jobTittle}}</strong></p>
-                                        <p>{{apwe.company}}</p>
-                                    </div>    
-                                </ng-template>
-                            </div>
-                            <div style="justify-self: right;">
-                                <button (click)="editWorkExperience()" pButton type="button" icon="pi pi-pencil"></button>
-                            </div>
+                        <div style="justify-self: right;">
+                            <button (click)="editEducation()" pButton type="button" icon="pi pi-pencil"></button>
                         </div>
-                    </p-accordionTab>
-                    <!-- </p-fieldset> -->
-                <!-- </p-card> -->
-                <div style="margin-bottom: 1em;"></div>
-                <!-- <p-card> -->
-                    <!-- <p-fieldset legend="Skill" [toggleable]="true"> -->
-                        <p-accordionTab header="Skill">
-                        <div class="konten">
-                            <div>
-                                <div *ngIf="showAS; else notShowAS">
-                                    <p style="color: red;"><strong>You have not filled out the form</strong></p>
-                                </div>
-                                <ng-template #notShowAS>
-                                    <div *ngFor="let aps of aplSkill;"> 
-                                        <p><strong>{{aps.skillName}}</strong> {{aps.skillLevel}}</p>
-                                    </div>    
-                                </ng-template>
+                    </div>
+                </p-tabPanel>
+                <p-tabPanel header="Work Experience">
+                    <div class="konten">
+                        <div>
+                            <div *ngIf="showAWE; else notShowAWE">
+                                <p style="color: red;"><strong>You have not filled out the form</strong></p>
                             </div>
-                            <div style="justify-self: right;">
-                                <button (click)="editSkill()" pButton type="button" icon="pi pi-pencil"></button>
-                            </div>
+                            <ng-template #notShowAWE>
+                                <div *ngFor="let apwe of aplWorkExp;" style="padding-bottom: 5px;">
+                                    <p><strong>{{apwe.jobTittle}}</strong></p>
+                                    <p>{{apwe.company}} - {{apwe.startDate | date:'dd/MMM/yyyy'}} until {{apwe.endDate | date:'dd/MMM/yyyy'}}</p>
+                                </div>    
+                            </ng-template>
                         </div>
-                    </p-accordionTab>
-                <!-- </p-fieldset> -->
-                <!-- </p-card> -->
-                <div style="margin-bottom: 1em;"></div>
-                <!-- <p-card> -->
-                <!-- <p-fieldset legend="Project" [toggleable]="true"> -->
-                    <p-accordionTab header="Project">
+                        <div style="justify-self: right;">
+                            <button (click)="editWorkExperience()" pButton type="button" icon="pi pi-pencil"></button>
+                        </div>
+                    </div>
+                </p-tabPanel>
+                <p-tabPanel header="Skill">
+                    <div class="konten">
+                        <div>
+                            <div *ngIf="showAS; else notShowAS">
+                                <p style="color: red;"><strong>You have not filled out the form</strong></p>
+                            </div>
+                            <ng-template #notShowAS>
+                                <div *ngFor="let aps of aplSkill;" style="padding-bottom: 5px;">
+                                    <p><strong>{{aps.skillName}}</strong> - {{aps.skillLevel}}</p>
+                                </div>    
+                            </ng-template>
+                        </div>
+                        <div style="justify-self: right;">
+                            <button (click)="editSkill()" pButton type="button" icon="pi pi-pencil"></button>
+                        </div>
+                    </div>
+                </p-tabPanel>
+                <p-tabPanel header="Project">
                     <div class="konten">
                         <div>
                             <div *ngIf="showAP; else notShowAP">
                                 <p style="color: red;"><strong>You have not filled out the form</strong></p>
                             </div>
                             <ng-template #notShowAP>
-                                <div *ngFor="let app of aplProject;">
-                                    <p>{{app.projectName}}</p>
+                                <div *ngFor="let app of aplProject;" style="padding-bottom: 5px;">
+                                    <p><strong>{{app.projectName}}</strong></p>
+                                    <p>As {{app.role}} - {{app.startDate | date:'dd/MMM/yyyy'}} until {{app.endDate | date:'dd/MMM/yyyy'}}</p>
                                 </div>    
                             </ng-template>
                         </div>
@@ -167,41 +138,30 @@
                             <button (click)="editProject()" pButton type="button" icon="pi pi-pencil"></button>
                         </div>
                     </div>
-                </p-accordionTab>
-                <!-- </p-fieldset> -->
-                <!-- </p-card> -->
-            </p-accordion>
-            </div>
-        </p-scrollPanel>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
     </div>
 </body>
 
-<!-- pop-up delete foto -->
-<p-dialog header="Delete" [(visible)]="displayDeletePhoto" [modal]="true">
+<!-- pop-up upload foto -->
+<p-dialog header="Upload Photo" [(visible)]="displayUploadPhoto" [modal]="true" [dismissableMask]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
     <div>
-        <h4>Are you sure?</h4>
-    </div>
-    <div>
-        <button type="button" (click)="cancelDialogDeletePhoto()" pButton label="Cancel"></button>&nbsp;
-        <button type="button" (click)="ininantidiganti()" pButton label="Delete" class="ui-button-danger"></button>
-    </div>
-</p-dialog>
-
-<p-dialog header="Upload Photo" [(visible)]="displayUploadPhoto">
-    <div>
+        <p>*note : maximum size 2 Mb and only *.jpg or *.png</p><br>
         <input type="file" (change)="getFile($event)">
     </div><br>
     <div *ngIf ='progressBar'>
-        <p-progressBar [value]="progressBar"></p-progressBar>
+        <p-progressBar [value]="progressBar"></p-progressBar><br>
     </div>
-    <div>
-        <button type="button" (click)="cancelDialogUpload()" pButton label="Cancel"></button>&nbsp;
-        <button type="button" (click)="uploadPhoto()" pButton label="Upload" class="ui-button-danger"></button>
+    <div style="justify-items: center;">
+        <button type="button" (click)="cancelDialogUpload()" pButton label="Cancel" class="ui-button-secondary"></button>&nbsp;
+        <button type="button" (click)="uploadPhoto()" pButton label="Upload"></button>
     </div>
 </p-dialog>
 
 <!-- pop-up untuk application list -->
-<p-dialog header="Application List" [(visible)]="displayApplicationList" [style]="{width: '60vw'}" [modal]="true">
+<p-dialog header="Application List" [(visible)]="displayApplicationList" [style]="{width: '60vw'}" [modal]="true" [dismissableMask]="true">
     <p-table [value]="applicationList">
         <ng-template pTemplate="header">
             <tr style="text-align-last: center;">
@@ -220,14 +180,14 @@
             </tr>
         </ng-template>
     </p-table>
-<div style="text-align-last: right;"><br>
-    <button type="button" (click)="cancelDialogApplicationList()" pButton label="Close" class="ui-button-secondary"></button>&nbsp;
-    <button type="button" (click)="showDialogInterviewList()" pButton label="Interview List" class="ui-button-success"></button>
-</div>
+    <div style="text-align-last: right;"><br>
+        <button type="button" (click)="cancelDialogApplicationList()" pButton label="Close" class="ui-button-secondary"></button>&nbsp;
+        <button type="button" (click)="showDialogInterviewList()" pButton label="Interview List" class="ui-button-success"></button>
+    </div>
 </p-dialog>
 
 <!-- pop-up untuk interview list -->
-<p-dialog header="Interview List" [(visible)]="displayInterviewList" [style]="{width: '90vw'}" [modal]="true">
+<p-dialog header="Interview List" [(visible)]="displayInterviewList" [style]="{width: '90vw'}" [modal]="true" [dismissableMask]="true">
     <p-table [value]="interviewList">
         <ng-template pTemplate="header">
             <tr style="text-align-last: center;">
@@ -264,14 +224,14 @@
             </tr>
         </ng-template>
     </p-table>
-<div style="text-align-last: right;"><br>
-    <button type="button" (click)="cancelDialogInterviewList()" pButton label="Close" class="ui-button-secondary"></button>&nbsp;
-    <button type="button" (click)="showDialogApplicationList()" pButton label="Application List" class="ui-button-success"></button>
-</div>
+    <div style="text-align-last: right;"><br>
+        <button type="button" (click)="cancelDialogInterviewList()" pButton label="Close" class="ui-button-secondary"></button>&nbsp;
+        <button type="button" (click)="showDialogApplicationList()" pButton label="Application List" class="ui-button-success"></button>
+    </div>
 </p-dialog>
 
 <!-- pop up reason reschedule -->
-<p-dialog header="Reason Reschedule" [(visible)]="displayReasonReschedule">
+<p-dialog header="Reason Reschedule" [(visible)]="displayReasonReschedule" [modal]="true" [dismissableMask]="true">
     <div><br>
         <span class="ui-float-label">
             <textarea [(ngModel)]="reasonReschedule" id="reasonReschedule" rows="5" cols="30" pInputTextArea> </textarea>
@@ -286,7 +246,7 @@
 
 
 <!-- pop up reason reject -->
-<p-dialog header="Reason Reject" [(visible)]="displayReasonReject">
+<p-dialog header="Reason Reject" [(visible)]="displayReasonReject" [modal]="true" [dismissableMask]="true">
     <div><br>
         <span class="ui-float-label">
             <textarea [(ngModel)]="reasonReject" id="reasonReject" rows="5" cols="30" pInputTextArea> </textarea>
@@ -300,7 +260,7 @@
 </p-dialog>
 
 <!-- pop-up untuk document list -->
-<p-dialog header="Document List" [(visible)]="displayDocumentList" [style]="{width: '40vw'}" [modal]="true">
+<p-dialog header="Document List" [(visible)]="displayDocumentList" [style]="{width: '40vw'}" [modal]="true" [dismissableMask]="true">
     <div *ngFor="let aplDoc of aplDocument" class="kontendok">
         <div style="text-align: right; padding-right: 1.5em;">
             <p>{{aplDoc.fileName}}</p>
@@ -314,7 +274,8 @@
     </div>
 </p-dialog>
 
-<p-dialog [(visible)]="displayPreview" [style]="{height: '500px'}">
+<!-- pop-up untuk dokumen -->
+<p-dialog [(visible)]="displayPreview" [style]="{height: '500px'}" [modal]="true" [dismissableMask]="true">
     <p-scrollPanel>
         <div>
             <pdf-viewer [src]="documentData" 
@@ -324,6 +285,7 @@
     </p-scrollPanel>
 </p-dialog>
 
+<!-- pop-up untuk sidebarProfile -->
 <p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
     <div style="justify-self: center;">
         <div style="margin-bottom: 100%;">

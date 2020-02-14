@@ -55,21 +55,16 @@ export class ApplicantdocumentComponent implements OnInit {
     let formData = new FormData();
     this.progressBar = 0;
     formData.append("upload",this.file);
-    this.httpClient.post(this.apiURL+"/upload/"+this.id+"/"+this.docTypeId,formData,{reportProgress:true,observe:'events'}).subscribe(
-      (events)=>{
-        this.displayProgressBar = true;
-        if(events.type === HttpEventType.UploadProgress)
-        {
-          this.progressBar = Math.round(events.loaded/events.total * 100);
-        }
-        else if(events.type === HttpEventType.Response)
-        { 
-          this.progressBar = '';
-          localStorage.setItem('user',JSON.stringify(events.body));
-          location.href = '/applicant/myprofile'
-        }
-    }
-    )
+    this.httpClient.post(this.apiURL+"/upload/"+this.id+"/"+this.docTypeId,formData,{reportProgress:true,observe:'events'}).subscribe((events)=>{
+      this.displayProgressBar = true;
+      if(events.type === HttpEventType.UploadProgress){
+        this.progressBar = Math.round(events.loaded/events.total * 100);
+      } else if (events.type === HttpEventType.Response){
+        this.progressBar = '';
+        localStorage.setItem('user',JSON.stringify(events.body));
+        location.href = '/applicant/myprofile'
+      }
+    })
   }
 
   getFile(event){
@@ -79,12 +74,10 @@ export class ApplicantdocumentComponent implements OnInit {
   displayUploadCV: boolean = false;
   showDialogUploadCV(id){
     this.id = id;
-    this.documentTypeService.getDocumentTypeByCode("CV").subscribe(
-      (data)=>{
-        this.docType = data;
-        this.docTypeId = this.docType.id;
-      }
-    )
+    this.documentTypeService.getDocumentTypeByCode("CV").subscribe((data)=>{
+      this.docType = data;
+      this.docTypeId = this.docType.id;
+    })
     this.displayUploadCV = true;
   }
   cancelDialogUploadCV(){
@@ -94,12 +87,10 @@ export class ApplicantdocumentComponent implements OnInit {
   displayUploadIjazah: boolean = false;
   showDialogUploadIjazah(id){
     this.id = id;
-    this.documentTypeService.getDocumentTypeByCode("IJZ").subscribe(
-      (data)=>{
-        this.docType = data;
-        this.docTypeId = this.docType.id;
-      }
-    )
+    this.documentTypeService.getDocumentTypeByCode("IJZ").subscribe((data)=>{
+      this.docType = data;
+      this.docTypeId = this.docType.id;
+    })
     this.displayUploadIjazah = true;
   }
   cancelDialogUploadIjazah(){
@@ -109,12 +100,10 @@ export class ApplicantdocumentComponent implements OnInit {
   displayUploadSertif: boolean = false;
   showDialogUploadSertif(id){
     this.id = id;
-    this.documentTypeService.getDocumentTypeByCode("SERTIF").subscribe(
-      (data)=>{
-        this.docType = data;
-        this.docTypeId = this.docType.id;
-      }
-    )
+    this.documentTypeService.getDocumentTypeByCode("SERTIF").subscribe((data)=>{
+      this.docType = data;
+      this.docTypeId = this.docType.id;
+    })
     this.displayUploadSertif = true;
   }
   cancelDialogUploadSertif(){

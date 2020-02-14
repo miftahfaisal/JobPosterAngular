@@ -6,6 +6,7 @@ import { ApplicantWorkExperience } from 'src/app/models/ApplicantWorkExperience'
 import { JoblevelService } from 'src/app/services/joblevel.service';
 import { JobcategoryService } from 'src/app/services/jobcategory.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-workexperienceedit',
@@ -30,8 +31,8 @@ export class WorkexperienceeditComponent implements OnInit {
     private aplWEService: ApplicantworkexperienceService,
     private aplJobLevelService: JoblevelService,
     private aplJobCatService: JobcategoryService,
-    private hp: HomepageComponent,
-    private auth: AuthService
+    private auth: AuthService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -66,26 +67,28 @@ export class WorkexperienceeditComponent implements OnInit {
 
   addWorkExperience(){
     this.aplWEService.inputWorkExp(this.aplWEModel).subscribe((data)=>{
-      console.log(data)
-      this.router.navigateByUrl('/applicant/myprofile')
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Work Experience sumbitted'})
+      this.reloadPage()
+    },(error)=>{
+      this.messageService.add({key: 'wr', severity:'warn', summary: 'Warn', detail: error.error})
     })
   }
   editWorkExperience(){
-    this.aplWEService.alterWorkExp(this.aplworkexpedit).subscribe(
-      (data)=>
-      {
-        this.backToProfile();
-      }
-    )
+    this.aplWEService.alterWorkExp(this.aplworkexpedit).subscribe((data)=>{
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Work Experience edited'})
+      this.reloadPage()
+    },(error)=>{
+      this.messageService.add({key: 'wr', severity:'warn', summary: 'Warn', detail: error.error})
+    })
   }
   deleteWorkExperience(){
     this.aplWEService.dropWorkExp(this.id).subscribe((data)=>{
-      console.log(data)
-      this.router.navigateByUrl('/applicant/myprofile')
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Work Experience deleted'})
+      this.reloadPage()
     })
   }
-  backToProfile(){
-    this.router.navigateByUrl('/applicant/myprofile')
+  reloadPage(){
+    location.href = '/applicant/edit-work-experience'
   }
 
   getWEApplicant(id){
@@ -105,14 +108,6 @@ export class WorkexperienceeditComponent implements OnInit {
     this.aplJobCatService.getAllJobCategory().subscribe((data)=>{
       this.jobCat = data;
     })
-  }
-
-  sidebarProfile: boolean = false;
-  sidebarProfileActive(){
-    this.sidebarProfile = true;
-  }
-  sidebarProfileInactive(){
-    this.sidebarProfile = false;
   }
 
   displayDeleteWorkExp: boolean = false;

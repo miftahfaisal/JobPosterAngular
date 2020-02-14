@@ -11,8 +11,7 @@
     <div class="kontainer">
         <div id="content"></div>
         <div>
-            <!-- <div style="background-color: white;"> -->
-                <p-card>
+            <p-card>
                 <div class="konten">
                     <div>
                         <legend><strong>Project</strong></legend>
@@ -28,50 +27,45 @@
                 <div *ngFor="let aplproj of aplProjectList;" class="kontentengah">
                     <div>
                         <legend>{{aplproj.projectName}}</legend>
-                        <p>As {{aplproj.role}} - {{aplproj.startDate | date: 'dd/MMM/yyyy'}} until {{aplproj.endDate | date: 'dd/MMM/yyyy'}}</p>
+                        <p>As <strong>{{aplproj.role}}</strong> from {{aplproj.startDate | date: 'dd/MMM/yyyy'}} until {{aplproj.endDate | date: 'dd/MMM/yyyy'}}</p>
                     </div>
                     <div style="justify-self: right;">
                         <button (click)="showDialogEditProject(aplproj.id)" pButton type="button" icon="pi pi-pencil"></button>&nbsp;
                         <button (click)="showDialogDeleteProject(aplproj.id)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button>
                     </div>
                 </div>
-                <!-- <div class="kontenbawah">
-                    <div></div>
-                    <div style="justify-self: right;">
-                        <button [routerLink]="'/applicant/myprofile'" pButton type="button" label="Back to Profile" class="ui-button-success"></button>
-                    </div>
-                </div> -->
             </p-card>
-            <!-- </div> -->
         </div>
     </div>
 </body>
 
 <!-- pup-up untuk menambahkan project -->
-<p-dialog header="Add Project" [(visible)]="displayAddProject" >
+<p-dialog header="Add Project" [(visible)]="displayAddProject" [modal]="true" [dismissableMask]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
+    <p-toast position="top-center" key="wr"></p-toast>
     <div class="kontenadd">
         <div><br>
             <span class="ui-float-label">
                 <input [(ngModel)]="aplProjectModel.projectName" id="projectName" type="text" size="35" pInputText>
-                <label for="school">Project Name</label>
+                <label for="projectName">Project Name</label>
             </span><br>
         </div>
         <div><br>
             <span class="ui-float-label">
-                <input [(ngModel)]="aplProjectModel.role" id="float-input" type="text" size="35" pInputText>
-                <label for="float-input">Role</label>
+                <input [(ngModel)]="aplProjectModel.role" id="role" type="text" size="35" pInputText>
+                <label for="role">Role</label>
             </span><br>
         </div>
         <div><br>
             <span class="ui-float-label">
-                <input [(ngModel)]="aplProjectModel.link" id="float-input" type="text" size="35" pInputText>
-                <label for="float-input">Link (Optional)</label>
+                <input [(ngModel)]="aplProjectModel.link" id="link" type="text" size="35" pInputText>
+                <label for="link">Link (Optional)</label>
             </span><br>
         </div>
         <div><br>
             <span class="ui-float-label">
-                <textarea [(ngModel)]="aplProjectModel.description" id="float-input" [rows]="3" [cols]="50" size="35" autoResize="autoResize" pInputTextarea></textarea>
-                <label for="float-input">Description</label>
+                <input [(ngModel)]="aplProjectModel.description" id="description" size="35" autoResize="autoResize" pInputText>
+                <label for="description">Description</label>
             </span><br>
         </div>
         <div style="margin-right: 0.5em;">
@@ -90,7 +84,9 @@
 </p-dialog>
 
 <!-- pup-up untuk mengedit project -->
-<p-dialog header="Edit Project" [(visible)]="displayEditProject">
+<p-dialog header="Edit Project" [(visible)]="displayEditProject" [modal]="true" [dismissableMask]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
+    <p-toast position="top-center" key="wr"></p-toast>
     <div *ngIf="aplprojectedit" class="kontenadd">
         <div><br>
             <span class="ui-float-label">
@@ -134,7 +130,8 @@
 </p-dialog>
 
 <!-- pop up delete projct -->
-<p-dialog header="Delete Project" [(visible)]="displayDeleteProject">
+<p-dialog header="Delete Project" [(visible)]="displayDeleteProject" [modal]="true" [dismissableMask]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
     <div>
         <p>Are you sure want to delete project?</p>
     </div>
@@ -143,18 +140,3 @@
         <button style="width: 47%;" type="button" (click)="deleteProject()" pButton label="Delete" class="ui-button-danger"></button>
     </div>
 </p-dialog>
-
-<!-- pop-up untuk menampilkan sidebar profile -->
-<!-- <p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
-    <div style="justify-self: center;">
-        <div style="margin-bottom: 100%;">
-            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
-        </div>
-        <div>
-            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
-        </div>
-    </div>
-</p-sidebar> -->

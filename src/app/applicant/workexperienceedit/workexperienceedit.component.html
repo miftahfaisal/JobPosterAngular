@@ -4,7 +4,6 @@
     </div>
     <div class="ui-toolbar-group-right" style="padding-top: 5px;">
         <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
-        <!-- <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp; -->
     </div>
 </p-toolbar>
 <body>
@@ -34,19 +33,15 @@
                         <button (click)="showDialogDeleteWorkExp(aplwe.id)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button>
                     </div>
                 </div>
-                <!-- <div class="kontenbawah">
-                    <div></div>
-                    <div style="justify-self: right;">
-                        <button (click)="backToProfile()" pButton type="button" label="Back to Profile" class="ui-button-success"></button>
-                    </div>
-                </div> -->
             </p-card>
         </div>
     </div>
 </body>
 
 <!-- pop-up untuk menambahkan work experience -->
-<p-dialog header="Add Work Experience" [(visible)]="displayAddWorkExperience">
+<p-dialog header="Add Work Experience" [(visible)]="displayAddWorkExperience" [modal]="true" [dismissableMask]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
+    <p-toast position="top-center" key="wr"></p-toast>
     <div class="kontenadd">
         <div><br>
             <span class="ui-float-label">
@@ -83,7 +78,9 @@
 </p-dialog>
 
 <!-- pop-up untuk edit work experience -->
-<p-dialog header="Add Work Experience" [(visible)]="displayEditWorkExp">
+<p-dialog header="Add Work Experience" [(visible)]="displayEditWorkExp" [modal]="true" [dismissableMask]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
+    <p-toast position="top-center" key="wr"></p-toast>
     <div *ngIf="aplworkexpedit" class="kontenadd">
         <div><br>
             <span class="ui-float-label">
@@ -122,7 +119,8 @@
 </p-dialog>
 
 <!-- pop up delete work experience -->
-<p-dialog header="Delete Work Experience" [(visible)]="displayDeleteWorkExp">
+<p-dialog header="Delete Work Experience" [(visible)]="displayDeleteWorkExp" [modal]="true" [dismissableMask]="true">
+    <p-toast position="top-center" key="sc"></p-toast>
     <div>
         <p>Are you sure want to delete work experience?</p>
     </div>
@@ -131,17 +129,3 @@
         <button style="width: 47%;" type="button" (click)="deleteWorkExperience()" pButton label="Delete" class="ui-button-danger"></button>
     </div>
 </p-dialog>
-<!-- 
-<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
-    <div style="justify-self: center;">
-        <div style="margin-bottom: 100%;">
-            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
-        </div>
-        <div>
-            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
-        </div>
-    </div>
-</p-sidebar> -->

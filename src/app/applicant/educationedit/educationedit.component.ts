@@ -4,9 +4,9 @@ import { ApplicanteducationService } from 'src/app/services/applicanteducation.s
 import { ApplicantEducation } from 'src/app/models/ApplicantEducation';
 import { AuthService } from 'src/app/services/auth.service';
 import { EducationlevelService } from 'src/app/services/educationlevel.service';
-import { HomepageComponent } from 'src/app/homepage/homepage.component';
 import { MajorService } from 'src/app/services/major.service';
 import { EducationLevel } from 'src/app/models/EducationLevel';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-educationedit',
@@ -36,8 +36,8 @@ export class EducationeditComponent implements OnInit {
     private aplEduService: ApplicanteducationService,
     private eduLevelService : EducationlevelService,
     private majorService : MajorService,
-    // private hp : HomepageComponent,
-    private auth: AuthService
+    private auth: AuthService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -79,27 +79,34 @@ export class EducationeditComponent implements OnInit {
 
   addEducation(){
     this.aplEduService.inputEducation(this.aplEduModel).subscribe((data)=>{
-      this.goTo();
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Education submitted'})
+      this.reloadPage();
+    },(error)=>{
+      this.messageService.add({key: 'wr', severity:'warn', summary: 'Warn', detail: error.error})
     })
     
   }
+
   editEducation(){
     console.log(this.apleduedit)
     this.aplEduService.alterEducation(this.apleduedit).subscribe((data)=>{
       this.appEdu = data;
-      this.goTo();
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Education edited'})
+      this.reloadPage();
+    },(error)=>{
+      this.messageService.add({key: 'wr', severity:'warn', summary: 'Warn', detail: error.error})
     })
   }
   deleteEducation(){
     this.aplEduService.dropEducation(this.id).subscribe((data)=>{
-      this.goTo();
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Education deleted'})
+      this.reloadPage();
     });
   }
   
   searchAplEduById(id){
     let resp = this.aplEduService.getEducationById(id);
-    resp.subscribe((data)=> 
-    {
+    resp.subscribe((data)=> {
       this.apleduedit = data
       console.log(this.apleduedit);
       this.startDate = this.apleduedit.startDate;
@@ -110,16 +117,8 @@ export class EducationeditComponent implements OnInit {
     });
   }
 
-  goTo(){
-    this.router.navigateByUrl('/applicant/myprofile');
-  }
-
-  sidebarProfile: boolean = false;
-  sidebarProfileActive(){
-    this.sidebarProfile = true;
-  }
-  sidebarProfileInactive(){
-    this.sidebarProfile = false;
+  reloadPage(){
+    location.href = '/applicant/edit-education'
   }
 
   displayAddEducation: boolean = false;
@@ -148,7 +147,6 @@ export class EducationeditComponent implements OnInit {
   cancelDialogDeleteEducation(){
     this.displayDeleteEducation = false;
   }
-
   
   logOut(){
     this.auth.logout();

@@ -4,6 +4,7 @@ import { HomepageComponent } from 'src/app/homepage/homepage.component';
 import { ApplicantprojectService } from 'src/app/services/applicantproject.service';
 import { ApplicantProject } from 'src/app/models/ApplicantProject';
 import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-projectedit',
@@ -23,8 +24,8 @@ export class ProjecteditComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private hp: HomepageComponent,
     private aplProjectService: ApplicantprojectService,
+    private messageService: MessageService,
     private auth: AuthService
   ) { }
 
@@ -40,52 +41,44 @@ export class ProjecteditComponent implements OnInit {
   }
 
   getProjectApplicant(id){
-    this.aplProjectService.getProjectByApplicant(id).subscribe(
-      (data)=>
-      {
-        this.aplProjectList = data;
-      }
-    );
+    this.aplProjectService.getProjectByApplicant(id).subscribe((data)=>{
+      this.aplProjectList = data;
+    });
   }
 
   searchAplProjectById(id){
-    this.aplProjectService.getProjectById(id).subscribe(
-      (data)=>
-      {
-        this.aplprojectedit = data;
-      }
-    )
+    this.aplProjectService.getProjectById(id).subscribe((data)=>{
+      this.aplprojectedit = data;
+    })
   }
 
   addProject(){
-    this.aplProjectService.inputProject(this.aplProjectModel).subscribe(
-      (data)=>
-      {
-        this.backToProfile();
-      }
-    )
+    this.aplProjectService.inputProject(this.aplProjectModel).subscribe((data)=>{
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Project submitted'});
+      this.reloadPage();
+    },(error)=>{
+      this.messageService.add({key: 'wr', severity:'warn', summary: 'Warn', detail: error.error});
+    })
   }
 
   editProject(){
-    this.aplProjectService.alterProject(this.aplprojectedit).subscribe(
-      (data)=>
-      {
-        this.backToProfile();
-      }
-    )
+    this.aplProjectService.alterProject(this.aplprojectedit).subscribe((data)=>{
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Project edited'});
+      this.reloadPage();
+    },(error)=>{
+      this.messageService.add({key: 'wr', severity:'warn', summary: 'Warn', detail: error.error});
+    })
   }
 
   deleteProject(){
-    this.aplProjectService.dropProject(this.id).subscribe(
-      (data)=>
-      {
-        this.backToProfile();
-      }
-    )
+    this.aplProjectService.dropProject(this.id).subscribe((data)=>{
+      this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Project deleted'});
+      this.reloadPage();
+    })
   }
 
-  backToProfile(){
-    this.router.navigateByUrl('/applicant/myprofile')
+  reloadPage(){
+    location.href = '/applicant/edit-project'
   }
 
   displayAddProject: boolean = false;

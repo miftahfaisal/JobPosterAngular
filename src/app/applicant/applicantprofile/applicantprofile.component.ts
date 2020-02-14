@@ -17,6 +17,7 @@ import { InterviewtestscheduleService } from 'src/app/services/interviewtestsche
 import { InterviewSchedule } from 'src/app/models/InterviewSchedule';
 import { DocumentService } from 'src/app/services/document.service';
 import { ApplicationService } from 'src/app/services/application.service';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -84,10 +85,10 @@ export class ApplicantprofileComponent implements OnInit {
       private aplStateChangeService : ApplicationstatechangeService,
       private aplInterviewScheduleService: InterviewtestscheduleService,
       private aplService: ApplicationService,
-      // private hp: HomepageComponent,
       private auth: AuthService,
       private httpClient: HttpClient,
-      private documentService: DocumentService
+      private documentService: DocumentService,
+      private messageService: MessageService
       ) {
        
       }
@@ -95,31 +96,29 @@ export class ApplicantprofileComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(this.auth.getUser());
     if(this.user!=null){
-        console.log(this.user)
-        let imageData;
-        if(this.user.selfDescription == null || this.user.selfDescription == ''){
-          this.showADESC = true;
-        }
-        if(this.user.image == null){
-          this.showImage = false;
-        }
-
-        if(this.user.image != null){
-          this.showImage = true;
-          imageData = 'data:'+this.user.imageType+';base64,'+this.user.image;
-        }
-        if(this.user.salary == null){
-          this.showASAL = true;
-        }
-
-        this.getImageData(imageData);
-        this.getEduApplicant(this.user.id);
-        this.getWorkExpApplicant(this.user.id);
-        this.getProjectApplicant(this.user.id)
-        this.getSkillApplicant(this.user.id);
-        // this.getSalaryApplicant(this.user.id);
-        this.getRecentEduByApplicant(this.user.id);
-    }else{
+      console.log(this.user)
+      let imageData;
+      if(this.user.selfDescription == null || this.user.selfDescription == ''){
+        this.showADESC = true;
+      }
+      if(this.user.image == null){
+        this.showImage = false;
+      }
+      if(this.user.image != null){
+        this.showImage = true;
+        imageData = 'data:'+this.user.imageType+';base64,'+this.user.image;
+      }
+      if(this.user.salary == null){
+        this.showASAL = true;
+      }
+      this.getImageData(imageData);
+      this.getEduApplicant(this.user.id);
+      this.getWorkExpApplicant(this.user.id);
+      this.getProjectApplicant(this.user.id)
+      this.getSkillApplicant(this.user.id);
+      // this.getSalaryApplicant(this.user.id);
+      this.getRecentEduByApplicant(this.user.id);
+    } else {
       this.router.navigateByUrl('/')
     }
   }
@@ -129,22 +128,17 @@ export class ApplicantprofileComponent implements OnInit {
     let formData = new FormData();
     this.progressBar = 0;
     formData.append("upload",this.file);
-    this.httpClient.post(this.apiURL+"/upload/"+this.id,formData,{reportProgress:true,observe:'events'}).subscribe(
-      (events)=>{
-        this.displayProgressBar = true;
-        if(events.type === HttpEventType.UploadProgress)
-        {
-          this.progressBar = Math.round(events.loaded/events.total * 100);
-        }
-        else if(events.type === HttpEventType.Response)
-        { 
-          this.progressBar = '';
-          localStorage.setItem('user',JSON.stringify(events.body));
-          location.href = '/applicant/myprofile'
-        }
-    }
-    )
-   
+    this.httpClient.post(this.apiURL+"/upload/"+this.id,formData,{reportProgress:true,observe:'events'}).subscribe((events)=>{
+      this.displayProgressBar = true;
+      if(events.type === HttpEventType.UploadProgress){
+        this.progressBar = Math.round(events.loaded/events.total * 100);
+      } else if (events.type === HttpEventType.Response){
+        this.progressBar = '';
+        localStorage.setItem('user',JSON.stringify(events.body));
+        this.messageService.add({key: 'sc', severity:'success', summary: 'Success', detail: 'Profile picture sumbitted'})
+        location.href = '/applicant/myprofile'
+      }
+    })
   }
 
   getFile(event){
@@ -154,159 +148,118 @@ export class ApplicantprofileComponent implements OnInit {
   getImageData(imageData){
     this.imageData = imageData;
   }
+
   editProfile(){
     this.router.navigateByUrl('/applicant/edit-profile');
   }
+
   editEducation() {
     this.router.navigateByUrl('/applicant/edit-education');
   }
+
   editWorkExperience() {
     this.router.navigateByUrl('/applicant/edit-work-experience');
   }
+
   editSkill() {
     this.router.navigateByUrl('/applicant/edit-skill');
   }
+
   editProject(){
     this.router.navigateByUrl('/applicant/edit-project')
   }
+
   getEduApplicant(id){
-    this.aplEduService.getEducationByApplicant(id).subscribe(
-      (data)=>{this.aplEdu = data; this.showAEToggle = true;},
-      (error)=>{this.showAE = true;}
-      )
+    this.aplEduService.getEducationByApplicant(id).subscribe((data)=>{
+      this.aplEdu = data; this.showAEToggle = true;
+    },(error)=>{
+      this.showAE = true;
+    })
   }
 
   getWorkExpApplicant(id){
-    this.aplWorkExpService.getWorkExpByApplicant(id).subscribe(
-      (data)=>{this.aplWorkExp = data;},
-      (error)=>{this.showAWE = true;}
-      )
+    this.aplWorkExpService.getWorkExpByApplicant(id).subscribe((data)=>{
+      this.aplWorkExp = data;
+    },(error)=>{
+      this.showAWE = true;
+    })
   }
 
   getSkillApplicant(id){
-    this.aplSkillService.getSkillByApplicant(id).subscribe(
-      (data)=>{this.aplSkill = data;},
-      (error)=>{this.showAS = true;}
-    )
+    this.aplSkillService.getSkillByApplicant(id).subscribe((data)=>{
+      this.aplSkill = data;
+    },(error)=>{
+      this.showAS = true;
+    })
   }
 
   getProjectApplicant(id){
-    this.aplProjectService.getProjectByApplicant(id).subscribe(
-      (data)=>{this.aplProject = data;},
-      (error)=>{this.showAP = true;}
-    )
+    this.aplProjectService.getProjectByApplicant(id).subscribe((data)=>{
+      this.aplProject = data;
+    },(error)=>{
+      this.showAP = true;
+    })
   }
 
-  // getSalaryApplicant(id){
-  //   this.aplSalaryService.getSalaryByApplicant(id).subscribe(
-  //     (data)=>{this.aplSalary = data;},
-  //     (error)=>{this.showASAL = true;}
-  //   )
-  // }
-
   getDocumentApplicant(){
-    this.documentService.getDocumentByApplicant(this.user.id).subscribe(
-      (data)=>{
-        this.aplDocument = data;
-      }
-    )
+    this.documentService.getDocumentByApplicant(this.user.id).subscribe((data)=>{
+      this.aplDocument = data;
+    })
   }
 
   getListApplication(){
-    this.aplStateChangeService.getListApplicationByApplicant(this.user.id).subscribe(
-      (data)=>{
-        this.applicationList = data;
-      }
-    )
+    this.aplStateChangeService.getListApplicationByApplicant(this.user.id).subscribe((data)=>{
+      this.applicationList = data;
+    })
   }
 
   getListInterview(){
-    this.aplInterviewScheduleService.getListScheduleByApplicant(this.user.id).subscribe(
-      (data)=>{
-        this.interviewList = data;
-      }
-    )
+    this.aplInterviewScheduleService.getListScheduleByApplicant(this.user.id).subscribe((data)=>{
+      this.interviewList = data;
+    })
   }
 
   getRecentEduByApplicant(id){
-    this.aplEduService.getRecentEducationByApplicant(id).subscribe(
-      (data)=>{
-        this.aplRecentEdu = data;
-      },
-      (error)=>{
+    this.aplEduService.getRecentEducationByApplicant(id).subscribe((data)=>{
+      this.aplRecentEdu = data;
+    },(error)=>{
 
-      }
-    )
+    })
   }
 
   attend(id){
-    this.aplInterviewScheduleService.getInterviewTestScheduleById(id).subscribe(
-      (data)=>
-      {
-        this.aplInterviewTest = data;
-        this.aplService.attendInterview(this.aplInterviewTest).subscribe(
-          (data)=>
-          {
-            location.href = 'applicant/myprofile';
-          }
-        )
-        
-      }
-    )
+    this.aplInterviewScheduleService.getInterviewTestScheduleById(id).subscribe((data)=>{
+      this.aplInterviewTest = data;
+      this.aplService.attendInterview(this.aplInterviewTest).subscribe((data)=>{
+        location.href = 'applicant/myprofile';
+      }) 
+    })
   }
 
   reschedule(){
-    this.aplInterviewScheduleService.getInterviewTestScheduleById(this.idInterviewList).subscribe(
-      (data)=>
-      {
-       
-        this.aplInterviewTest = data;
-        this.aplInterviewTest.reschedule = true;
-        this.aplInterviewTest.rescheduleReason = this.reasonReschedule;
-        this.aplService.rescheduleRequestByApplicant(this.aplInterviewTest).subscribe(
-          (data)=>
-          {
-           
-          }
-        )
-      }
-    )
+    this.aplInterviewScheduleService.getInterviewTestScheduleById(this.idInterviewList).subscribe((data)=>{
+      this.aplInterviewTest = data;
+      this.aplInterviewTest.reschedule = true;
+      this.aplInterviewTest.rescheduleReason = this.reasonReschedule;
+      this.aplService.rescheduleRequestByApplicant(this.aplInterviewTest).subscribe((data)=>{
+
+        })
+    })
   }
 
   reject(){
-    this.aplInterviewScheduleService.getInterviewTestScheduleById(this.idInterviewList).subscribe(
-      (data)=>
-      {
-        this.aplInterviewTest = data;
-        this.aplInterviewTest.rejectReason = this.reasonReject;
-        
-        let reason = this.reasonReject;
-
-        let applicationApplicant : any;
-
-        this.aplService.getApplicationApplicant(this.aplInterviewTest.application.id).subscribe(
-          (data)=>{
-            applicationApplicant = data;
-            this.aplService.rejectByApplicant(applicationApplicant, reason).subscribe(
-              (data)=>{
-                location.href = 'applicant/myprofile';
-              }
-            )
-          }
-        )
-
-        // 
-        // if(this.aplInterviewTest.reschedule == true){
-        //   this.aplInterviewTest.reschedule = false;
-        // }
-        // this.aplInterviewTest.reject = true;
-        // this.aplInterviewScheduleService.alterInterviewTestSchedule(this.aplInterviewTest).subscribe(
-        //   (data)=>{
-        //     alert("UHUY");
-        //   }
-        // )
-      }
-    )
+    this.aplInterviewScheduleService.getInterviewTestScheduleById(this.idInterviewList).subscribe((data)=>{
+      this.aplInterviewTest = data;
+      this.aplInterviewTest.rejectReason = this.reasonReject;        
+      let reason = this.reasonReject;
+      let applicationApplicant : any;
+      this.aplService.getApplicationApplicant(this.aplInterviewTest.application.id).subscribe((data)=>{
+        applicationApplicant = data;
+        this.aplService.rejectByApplicant(applicationApplicant, reason).subscribe((data)=>{
+          location.href = 'applicant/myprofile';
+        })
+      })
+    })
   }
 
   sidebarProfile: boolean = false;
@@ -330,7 +283,6 @@ export class ApplicantprofileComponent implements OnInit {
     this.idInterviewList = id;
     this.displayReasonReschedule = true;
   }
-
   cancelDialogReasonReschedule(){
     this.displayReasonReschedule = false;
   }
@@ -340,7 +292,6 @@ export class ApplicantprofileComponent implements OnInit {
     this.idInterviewList = id;
     this.displayReasonReject = true;
   }
-
   cancelDialogReasonReject(){
     this.displayReasonReject = false;
   }
@@ -371,7 +322,6 @@ export class ApplicantprofileComponent implements OnInit {
     this.cancelDialogApplicationList();
     this.getListInterview();
   }
-
   cancelDialogInterviewList(){
     this.displayInterviewList = false;
   }
@@ -382,7 +332,6 @@ export class ApplicantprofileComponent implements OnInit {
     this.sidebarProfile = false;
     this.getDocumentApplicant();
   }
-
   cancelDialogDocumentList(){
     this.displayDocumentList = false;
   }

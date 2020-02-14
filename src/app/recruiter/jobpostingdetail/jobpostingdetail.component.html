@@ -15,6 +15,7 @@
                     <div *ngIf="jobPost.activeState == true; else notShowCloseJobBtn">
                         <button (click)="showDialogCloseJobPosting()" pButton type="button" label="Close Application" class="ui-button-danger" icon="pi pi-ban"></button>&nbsp;
                         <button (click)="updateJobPosting(jobPost.id)" pButton type="button" label="Update" icon="pi pi-pencil"></button>&nbsp;
+                        <button (click)="downloadReport(jobPost.id)" pButton type="button" label="Report" icon="pi pi-download" class="ui-button-success"></button>&nbsp;
                         <button [routerLink]="'/recruiter/job-posting'" pButton type="button" label="Back" class="ui-button-secondary" icon="pi pi-home"></button>
                     </div>
                     <ng-template #notShowCloseJobBtn>

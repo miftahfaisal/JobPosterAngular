@@ -3,8 +3,7 @@
         <img style="width: 150px;" src="assets/lwcn-logo.png">
     </div>
     <div class="ui-toolbar-group-right" style="padding-top: 5px;">
-        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>&nbsp;
-        <!-- <button pButton type="button" label="My Profile" icon="pi pi-user" (click)="sidebarProfileActive()"></button>&nbsp; -->
+        <button pButton type="button" label="Search Jobs" icon="pi pi-search" [routerLink]="'/applicant/search-job'"></button>
     </div>
 </p-toolbar>
 <body>
@@ -37,19 +36,15 @@
                         <button (click)="showDialogDeleteSkill(aps.id)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button>
                     </div>
                 </div>
-                <!-- <div class="kontenbawah">
-                    <div></div>
-                    <div style="justify-self: right;">
-                        <button (click)="backToProfile()" pButton type="button" label="Back to Profile" class="ui-button-success"></button>
-                    </div>
-                </div> -->
             </p-card>
         </div>
     </div>
 </body>
 
 <!-- pop up insert new skill -->
-<p-dialog header="Add Skill" [(visible)]="displayAddSkill">
+<p-dialog header="Add Skill" [(visible)]="displayAddSkill" [modal]="true" [dismissableMask]="true">
+    <p-toast position="center" key="sc"></p-toast>
+    <p-toast position="center" key="wr"></p-toast>
     <div class="kontenadd">
         <div class="content"><br>
             <span class="ui-float-label">
@@ -69,7 +64,9 @@
 </p-dialog>
 
 <!-- pop up edit skill -->
-<p-dialog header="Edit Skill" [(visible)]="displayEditSkill">
+<p-dialog header="Edit Skill" [(visible)]="displayEditSkill" [modal]="true" [dismissableMask]="true">
+    <p-toast position="center" key="sc"></p-toast>
+    <p-toast position="center" key="wr"></p-toast>
     <div *ngIf="aplskilledit" class="kontenadd">
         <div class="content"><br>
             <span class="ui-float-label">
@@ -89,7 +86,8 @@
 </p-dialog>
 
 <!-- pop up delete skill -->
-<p-dialog header="Delete Skill" [(visible)]="displayDeleteSkill">
+<p-dialog header="Delete Skill" [(visible)]="displayDeleteSkill" [modal]="true" [dismissableMask]="true">
+    <p-toast position="center" key="sc"></p-toast>
     <div>
         <p>Are you sure want to delete skill?</p>
     </div>
@@ -98,17 +96,3 @@
         <button style="width: 47%;" type="button" (click)="deleteSkill()" pButton label="Delete" class="ui-button-danger"></button>
     </div>
 </p-dialog>
-<!-- 
-<p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
-    <div style="justify-self: center;">
-        <div style="margin-bottom: 100%;">
-            <h1><strong><i class="pi pi-user"></i>My Profile</strong></h1>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/myprofile'" label="Profile" class="ui-button-secondary" icon="pi pi-user"></button><br>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/application-list'" label="Application List" class="ui-button-secondary" icon="pi pi-list"></button><br>
-        <button style="width: 100%;" pButton type="button" [routerLink]="'/applicant/resume'" label="Resume" class="ui-button-secondary" icon="pi pi-file"></button><br>
-        </div>
-        <div>
-            <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>
-        </div>
-    </div>
-</p-sidebar> -->

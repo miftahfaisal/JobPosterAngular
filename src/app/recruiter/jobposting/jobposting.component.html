@@ -7,6 +7,20 @@
     </div>
 </p-toolbar>
 <body style="background-color: #f1f9f9;">
+    <p-toast [style]="{marginTop: '100px', marginRight: '300px'}" position="top-center" key="error"></p-toast>
+    <p-toast position="center" key="success" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'">
+        <ng-template let-message pTemplate="message">
+            <div style="text-align: center">
+                <i class="pi pi-check" style="font-size: 3em"></i>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <button type="button" pButton (click)="onConfirm()" label="Ok" class="ui-button-success"></button>
+                </div>
+            </div>
+        </ng-template>
+    </p-toast>
     <div class="kontainer">
         <div></div>
         <div *ngIf="user" style="padding-left: 3em;">
@@ -166,13 +180,51 @@
     </div>
 </p-dialog>
 
+<!-- pop-up untuk mengubah password -->
+<p-dialog header="Change Password" [(visible)]="displayChangePassword" [modal]="true">
+    <div><br>
+        <span class="ui-float-label">
+            <input [(ngModel)]="passwordPojo.oldPas" id="currentPassword" type="password" size="30" pInputText> 
+            <label for="currentPassword">Current Password</label>
+        </span><br>
+        <span class="ui-float-label">
+            <input [(ngModel)]="passwordPojo.newPas" id="newPassword" type="password" size="30" pInputText> 
+            <label for="newPassword">New Password</label>
+        </span><br>
+    </div>
+    <div style="width: 80%; margin-left: 10%; margin-right: 10%;">
+        <button style="width: 47%;" type="button" (click)="cancelDialogChangePassword()" pButton label="Cancel" class="ui-button-secondary"></button>&nbsp;
+        <button style="width: 47%;" type="button" (click)="changePassword()" pButton label="Change"></button>
+    </div>
+</p-dialog>
+
+<p-dialog header="Download Report" [(visible)]="displayDownloadReport">
+    <div>
+        <div>
+            <label>
+                *Note : If you want to download all job, don't fill the year.
+            </label>
+        </div>
+        <div>
+            <span class="ui-float-label" style="text-align-last: center;">
+                <input [(ngModel)]="year" id="quota" type="number" size="45" pInputText> 
+                <label>Year (Optional)</label>
+            </span><br>
+        </div>
+        <div style="text-align-last: center;">
+            <button type="button" (click)="downloadReport()" pButton label="Download" class="ui-button-success" icon="pi pi-download"></button>
+        </div>
+    </div>
+</p-dialog>
+
 <!-- pop-up sidebar Account -->
 <p-sidebar [(visible)]="sidebarAccount" position="right" [baseZIndex]="10000">
     <div style="justify-self: center;">
         <div style="margin-bottom: 100%;">
             <h2 style="text-align-last: center;"><strong>My Account</strong></h2>
             <button style="width: 100%;" pButton type="button" [routerLink]="'/recruiter/job-posting'" label="Job Posting List" class="ui-button-secondary" icon="pi pi-list"></button><br>
-            <button style="width: 100%;" pButton type="button" (click)="downloadReport()" label="Download Report" class="ui-button-secondary" icon="pi pi-file"></button><br>
+            <button style="width: 100%;" pButton type="button" (click)="showDialogDownloadReport()" label="Download Report" class="ui-button-secondary" icon="pi pi-file"></button><br>
+            <button style="width: 100%;" pButton type="button" (click)="showDialogChangePassword()" label="Change Password" class="ui-button-secondary" icon="pi pi-key"></button>
         </div>
         <div>
             <button style="width: 100%;" pButton type="button" label="Log-out" icon="pi pi-sign-out" class="ui-button-danger" (click)="logOut()"></button>

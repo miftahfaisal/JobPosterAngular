@@ -27,7 +27,7 @@ import { PasswordModule } from 'primeng/password';
 import { HttpClientModule } from '@angular/common/http';
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api'
+import { MessageService } from 'primeng/api';
 import { FieldsetModule } from 'primeng/fieldset';
 import {AccordionModule} from 'primeng/accordion';
 import {InputTextareaModule} from 'primeng/inputtextarea';

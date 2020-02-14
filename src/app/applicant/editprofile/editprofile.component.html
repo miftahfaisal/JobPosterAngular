@@ -79,7 +79,7 @@
                     <p>Salary</p><br>
                 </div>
                 <div>
-                    <input id="salary" [(ngModel)]="user.salary" type="number" size="35" pInputText><br>
+                    <input id="salary" [(ngModel)]="user.salary" type="number" size="35" min="0" step="100000" pInputText><br>
                 </div>
                 <div style="text-align-last: right; padding-right: 2em; padding-top: 0.5em;">
                     <p>Religion</p><br>
@@ -133,7 +133,7 @@
     <label>Copyright by : Group 4 - Bootcamp Programmer</label>
 </footer>
 
-<p-dialog header="Change Password" [(visible)]="displayChangePassword">
+<p-dialog header="Change Password" [(visible)]="displayChangePassword" [modal]="true">
     <div><br>
         <span class="ui-float-label">
             <input [(ngModel)]="passwordPojo.oldPas" id="currentPassword" type="password" size="30" pInputText> 
@@ -149,6 +149,8 @@
         <button style="width: 47%;" type="button" (click)="changePassword()" pButton label="Change"></button>
     </div>
 </p-dialog>
+
+<!-- pop-up untuk menampilkan sidebar Profile -->
 <p-sidebar [(visible)]="sidebarProfile" position="right" [baseZIndex]="10000">
     <div style="justify-self: center;">
         <div style="margin-bottom: 100%;">

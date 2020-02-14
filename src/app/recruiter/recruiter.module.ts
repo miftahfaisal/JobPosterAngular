@@ -25,7 +25,9 @@ import { TableModule } from 'primeng/table';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { JobpostingeditComponent } from './jobpostingedit/jobpostingedit.component';
 import { TabViewModule } from 'primeng/tabview';
-import {PdfViewerModule} from 'ng2-pdf-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
     TableModule,
     InputTextareaModule,
     TabViewModule,
-    PdfViewerModule
-  ]
+    PdfViewerModule,
+    ToastModule
+  ],
+  providers: [MessageService]
 })
 export class RecruiterModule { }

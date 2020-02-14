@@ -26,15 +26,17 @@ import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
-import {AccordionModule} from 'primeng/accordion';
+import { AccordionModule } from 'primeng/accordion';
 import { ToastModule } from 'primeng/toast';
-import {ProgressBarModule} from 'primeng/progressbar';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { ProjecteditComponent } from './projectedit/projectedit.component';
-import {FileUploadModule} from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
-import {TabMenuModule} from 'primeng/tabmenu';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TabViewModule } from 'primeng/tabview';
 import { ApplicantdocumentComponent } from './applicantdocument/applicantdocument.component';
-import {PdfViewerModule} from 'ng2-pdf-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [ApplicantprofileComponent, EditprofileComponent, WorkexperienceeditComponent, EducationeditComponent, SkilleditComponent, ApplicationlistComponent, ResumeComponent, SearchjobsComponent, ProjecteditComponent, ApplicantdocumentComponent],
@@ -60,7 +62,9 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
     FileUploadModule,
     TableModule,
     TabMenuModule,
+    TabViewModule,
     PdfViewerModule
-  ]
+  ],
+  providers: [MessageService],
 })
 export class ApplicantModule { }

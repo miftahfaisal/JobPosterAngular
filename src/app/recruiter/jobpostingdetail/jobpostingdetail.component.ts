@@ -12,6 +12,8 @@ import { InterviewSchedule } from 'src/app/models/InterviewSchedule';
 import { JobbenefitService } from 'src/app/services/jobbenefit.service';
 import { InterviewtestscheduleService } from 'src/app/services/interviewtestschedule.service';
 import { DocumentService } from 'src/app/services/document.service';
+import { ReportInput } from 'src/app/models/ReportInput';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-jobpostingdetail',
@@ -51,6 +53,8 @@ export class JobpostingdetailComponent implements OnInit {
   resDate: any;
   resHour: any;
 
+  reportModel: ReportInput;
+
   constructor(
     private route : ActivatedRoute,
     private router : Router,
@@ -65,7 +69,8 @@ export class JobpostingdetailComponent implements OnInit {
     private aplWEService : ApplicantworkexperienceService,
     private aplSkillService : ApplicantskillService,
     private interviewTestScheduleService : InterviewtestscheduleService,
-    private documentService : DocumentService
+    private documentService : DocumentService,
+    private userService: UserService
   ){}
 
   ngOnInit() {
@@ -158,6 +163,14 @@ export class JobpostingdetailComponent implements OnInit {
       alert('Reschedule applicant success!')
       location.href = 'recruiter/job-posting/detail/'+this.id
     })
+  }
+
+  downloadReport(id){
+    this.reportModel = new ReportInput(null,null,null);
+    this.reportModel.setJob(id);
+    this.reportModel.setRecruiter(null);
+    this.reportModel.setYear(null);
+    this.userService.getReport(this.reportModel).subscribe((data)=>{});
   }
 
   //method untuk pop-up dialog dan sidebar
