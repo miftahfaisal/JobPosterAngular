@@ -24,7 +24,7 @@
     "bootstrap": "^4.4.1",
     "cors": "^2.8.5",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ng2-pdf-viewer": "^6.0.2",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.0-rc.2",
